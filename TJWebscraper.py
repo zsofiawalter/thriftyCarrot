@@ -1,6 +1,7 @@
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.action_chains import ActionChains
 import pandas as pd
 
 # Takes apart table to be used
@@ -47,7 +48,7 @@ def findTJProducts(driver, category, table):
         try:
             arrow = driver.find_element(By.CLASS_NAME, "Pagination_pagination__arrow_side_right__9YUGr")
             arrow.click()
-            time.sleep(4)
+            time.sleep(2)
         except:
             break
 
@@ -57,7 +58,7 @@ def findTJProducts(driver, category, table):
 def traderJoes(driver, table):
     # Load website
     driver.get(r"https://www.traderjoes.com/home/products/category/food-8")
-    time.sleep(3)   # Wait for loading
+    time.sleep(2)   # Wait for loading
 
     # decompose table
     stores, categories, subcats, brands, names, prices = decomposeTable(table)
@@ -84,11 +85,12 @@ def traderJoes(driver, table):
         navCategories = findTJCategories(driver)
         for c in navCategories:
             if c.text == category:      # web element = element we want
-                time.sleep(4)
+                time.sleep(2)
+                ActionChains(driver).move_to_element(c).perform()
                 c.click()               # open page
                 break
         
-        time.sleep(4)                   # Wait for category page to load
+        time.sleep(2)                   # Wait for category page to load
 
         # Scrape information
         table = findTJProducts(driver, category, composeTable(stores, categories, subcats, brands, names, prices))
