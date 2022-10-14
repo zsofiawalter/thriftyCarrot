@@ -114,9 +114,9 @@ chromeDriver = webdriver.Chrome("/Library/Frameworks/Python.framework/Versions/3
 
 # Trader Joes
 table = traderJoes(chromeDriver, table)
+stores, categories, subcats, brands, names, prices = decomposeTable(table)
 
 chromeDriver.quit()
 
-df = pd.DataFrame({'Category':categories, 'Name':names, 'Price':prices}) 
-df = pd.DataFrame({'Store':stores, 'Category':categories, 'Subcategory':subcats, 'Brand':brands, 'Name':names, 'Price':prices}) 
+df = pd.DataFrame({'Store':stores, 'Category':categories, 'Subcategory':subcats, 'Name':names, 'Price':prices}) 
 df.to_csv('TJProducts.csv', index=False, encoding='utf-8')
