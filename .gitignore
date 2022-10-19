@@ -1,5 +1,3 @@
-*/thriftyCarrot/.flaskenv
-*/thriftyCarrot/__pycache__/*
-*/thriftyCarrot/app/__pycache__/*
-*/thriftyCarrot/app/models/__pycache__*
-*/thriftyCarrot/env/*
+*/.flaskenv
+*/__pycache__
+*/env
