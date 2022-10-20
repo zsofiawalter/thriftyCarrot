@@ -15,15 +15,15 @@ CREATE TABLE Products(
     name VARCHAR(30) NOT NULL,
     price DECIMAL(12,2) NOT NULL, 
     category VARCHAR(15) NOT NULL,
-    store VARCHAR (15) NOT NULL,
+    store VARCHAR(15) NOT NULL,
     last_update VARCHAR (10) NOT NULL
 );
 
 CREATE TABLE Preference(
     uid INTEGER(10) NOT NULL REFERENCES User(uid),
     pid INTEGER(10) NOT NULL REFERENCES Products(id),
-    like_dislike BOOLEAN,
-    PRIMARY KEY(uid, pid, like_dislike)
+    like_dislike BOOLEAN
+    PRIMARY KEY(uid, pid)
 );
 
 -- Stores current carts of users

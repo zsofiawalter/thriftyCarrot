@@ -1,6 +1,7 @@
 from werkzeug.security import generate_password_hash
 import csv
 from faker import Faker
+import random
 
 num_users = 100
 num_products = 2000
@@ -28,10 +29,13 @@ def gen_users(num_users):
             name_components = profile['name'].split(' ')
             firstname = name_components[0]
             lastname = name_components[-1]
-            writer.writerow([uid, email, password, firstname, lastname])
+            birthdate = profile['birthdate']
+            writer.writerow([uid, email, password, firstname, lastname, birthdate])
         print(f'{num_users} generated')
     return
 
+stores = ["Trader Joes", "Whole Foods", "Harris Teeters"]
+categories = ["Baked Goods", "Bread", "Produce", "Cheese", "Dairy & Eggs", "Sauces", "Prepared Food", "Frozen Food", "Produce", "Meat", "Seafood", "Baking", "Pantry", "Canned Goods", "Beverages"]
 
 def gen_products(num_products):
     available_pids = []
@@ -43,11 +47,12 @@ def gen_products(num_products):
                 print(f'{pid}', end=' ', flush=True)
             name = fake.sentence(nb_words=4)[:-1]
             price = f'{str(fake.random_int(max=500))}.{fake.random_int(max=99):02}'
-            available = fake.random_element(elements=('true', 'false'))
-            if available == 'true':
-                available_pids.append(pid)
-            writer.writerow([pid, name, price, available])
-        print(f'{num_products} generated; {len(available_pids)} available')
+            last_update = fake.date_time_between('-2w')
+            category = random.choice(categories)
+            store = random.choice(stores)
+            available_pids.append(pid)
+            writer.writerow([pid, name, price, category, store, last_update])
+        print(f'{num_products} generated;')
     return available_pids
 
 
