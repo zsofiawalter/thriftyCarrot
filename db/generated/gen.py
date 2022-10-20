@@ -56,21 +56,23 @@ def gen_products(num_products):
     return available_pids
 
 
-def gen_purchases(num_purchases, available_pids):
-    with open('Purchases.csv', 'w') as f:
+def gen_oldCarts(num_purchases, available_pids):
+    with open('OldCarts.csv', 'w') as f:
         writer = get_csv_writer(f)
-        print('Purchases...', end=' ', flush=True)
-        for id in range(num_purchases):
-            if id % 100 == 0:
-                print(f'{id}', end=' ', flush=True)
+        print('OldCarts...', end=' ', flush=True)
+        for cid in range(num_purchases):
+            if cid % 100 == 0:
+                print(f'{cid}', end=' ', flush=True)
             uid = fake.random_int(min=0, max=num_users-1)
             pid = fake.random_element(elements=available_pids)
+            cart_name = fake.sentence(nb_words=2)[:-1]
             time_purchased = fake.date_time()
-            writer.writerow([id, uid, pid, time_purchased])
+            writer.writerow([cid, uid, pid, cart_name, time_purchased])
         print(f'{num_purchases} generated')
     return
 
 
 gen_users(num_users)
 available_pids = gen_products(num_products)
-gen_purchases(num_purchases, available_pids)
+gen_oldCarts(num_purchases, available_pids)
+
