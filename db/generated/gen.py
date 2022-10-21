@@ -14,7 +14,7 @@ fake = Faker()
 def get_csv_writer(f):
     return csv.writer(f, dialect='unix')
 
-
+# id, email, password, firstname, lastname, birthdate
 def gen_users(num_users):
     with open('Users.csv', 'w') as f:
         writer = get_csv_writer(f)
@@ -36,7 +36,7 @@ def gen_users(num_users):
 
 stores = ["Trader Joes", "Whole Foods", "Harris Teeters"]
 categories = ["Baked Goods", "Bread", "Produce", "Cheese", "Dairy & Eggs", "Sauces", "Prepared Food", "Frozen Food", "Produce", "Meat", "Seafood", "Baking", "Pantry", "Canned Goods", "Beverages"]
-
+# id, name, price, category, store, last_update
 def gen_products(num_products):
     available_pids = []
     with open('Products.csv', 'w') as f:
@@ -55,8 +55,16 @@ def gen_products(num_products):
         print(f'{num_products} generated;')
     return available_pids
 
+# uid, pid, like_dislike
+def gen_preferences():
+    return
 
-def gen_oldCarts(num_purchases, available_pids):
+# uid, pid, quantity
+def gen_carts(num_itemsInCart):
+    return
+
+# uid, pid, like_dislike
+def gen_oldCarts(num_carts, available_pids):
     with open('OldCarts.csv', 'w') as f:
         writer = get_csv_writer(f)
         print('OldCarts...', end=' ', flush=True)
@@ -71,6 +79,9 @@ def gen_oldCarts(num_purchases, available_pids):
         print(f'{num_purchases} generated')
     return
 
+# cid, pid, product_name, price, category, store
+def gen_oldCartContent(num_purchases):
+    return
 
 gen_users(num_users)
 available_pids = gen_products(num_products)
