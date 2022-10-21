@@ -1,6 +1,6 @@
 from flask import current_app as app
 
-
+# __uid__, __pid__, like_dislike
 class Review:
     """
     This is just a TEMPLATE for Review, you should change this by adding or 

@@ -1,20 +1,17 @@
 from flask import current_app as app
 
-
+# __id__, name, price, category, store, last_update
 class Product:
-    def __init__(self, id, name, brand, category, price, lastUpdate):
+    def __init__(self, id, name, price, available):
         self.id = id
         self.name = name
-        self.brand = brand
-        self.category = category
         self.price = price
-        self.store = category
-        self.lastUpdate = lastUpdate
+        self.available = available
 
     @staticmethod
     def get(id):
         rows = app.db.execute('''
-SELECT id, name, brand, category, price, lastUpdate
+SELECT id, name, price, available
 FROM Products
 WHERE id = :id
 ''',
@@ -24,9 +21,9 @@ WHERE id = :id
     @staticmethod
     def get_all(available=True):
         rows = app.db.execute('''
-SELECT id, name, brand, category, price, lastUpdate
+SELECT id, name, price, available
 FROM Products
 WHERE available = :available
-''', #TODO: set here to filter based on last update 
-        available=available)
+''',
+                              available=available)
         return [Product(*row) for row in rows]

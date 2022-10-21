@@ -1,6 +1,6 @@
 from flask import current_app as app
 
-
+# __uid__, __pid__, quantity
 class Cart:
     """
     This is just a TEMPLATE for Cart, you should change this by adding or 
