@@ -56,7 +56,14 @@ def gen_products(num_products):
     return available_pids
 
 # uid, pid, like_dislike
-def gen_preferences():
+def gen_preferences(num_preferences):
+    with open('Preferences.csv', 'w') as f:
+        writer = get_csv_writer(f)
+        print('Preferences...', end=' ', flush=True)
+        for i in range(random.randint(0, num_users*num_products)):
+            
+            like_dislike = random.boolean
+            writer.writerow([i, like_dislike])
     return
 
 # uid, pid, quantity
