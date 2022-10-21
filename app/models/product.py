@@ -1,6 +1,6 @@
 from flask import current_app as app
 
-
+# __id__, name, price, category, store, last_update
 class Product:
     def __init__(self, id, name, price, available):
         self.id = id

@@ -1,7 +1,7 @@
 from flask import current_app as app
 
-# __cid__, uid, pid, time_created, cart_name
-class Purchase:
+# __cid__, __pid__, product_name, price, category, store
+class oldCartContents:
     def __init__(self, id, uid, pid, time_purchased):
         self.id = id
         self.uid = uid
