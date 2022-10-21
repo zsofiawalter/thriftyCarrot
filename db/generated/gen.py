@@ -5,6 +5,7 @@ import random
 
 num_users = 100
 num_products = 2000
+num_preferences = 500
 num_purchases = 2500
 
 Faker.seed(0)
@@ -60,10 +61,19 @@ def gen_preferences(num_preferences):
     with open('Preferences.csv', 'w') as f:
         writer = get_csv_writer(f)
         print('Preferences...', end=' ', flush=True)
-        for i in range(random.randint(0, num_users*num_products)):
-            
-            like_dislike = random.boolean
-            writer.writerow([i, like_dislike])
+        counter = 1
+        # Generates list of random length of random uids
+        randomlist = random.sample(range(0, num_users), random.randint(0, num_users))
+        for i in range(min(len(randomlist), num_preferences)):
+            if(counter>num_preferences): break
+            uid = randomlist[i]
+            for j in range(random.randint(0, num_products/4)):
+                if(counter>num_preferences): break
+                pid = random.randint(0, num_products)
+                like_dislike = random.choice([True, False])
+                counter += 1
+                writer.writerow([uid, pid, like_dislike])
+        print(f'{num_preferences} generated;')
     return
 
 # uid, pid, quantity
@@ -90,7 +100,8 @@ def gen_oldCarts(num_carts, available_pids):
 def gen_oldCartContent(num_purchases):
     return
 
-gen_users(num_users)
-available_pids = gen_products(num_products)
-gen_oldCarts(num_purchases, available_pids)
+# gen_users(num_users)
+# available_pids = gen_products(num_products)
+gen_preferences(num_preferences)
+# gen_oldCarts(num_purchases, available_pids)
 
