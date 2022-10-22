@@ -112,7 +112,7 @@ def gen_oldCarts(num_carts):
             uid = fake.random_int(min=0, max=num_users-1)
             cart_name = fake.sentence(nb_words=2)[:-1]
             time_created = fake.date_time()
-            writer.writerow([cid, uid, time_created, cart_name])
+            writer.writerow([cid, uid, cart_name, time_created])
         print(f'{num_carts} generated')
     return
 
