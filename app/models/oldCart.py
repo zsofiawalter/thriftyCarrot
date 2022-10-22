@@ -1,5 +1,6 @@
 from flask import current_app as app
 
+# model
 # __cid__, uid, time_created, cart_name
 class OldCart:
     def __init__(self, cid, uid, cart_name, time_created):

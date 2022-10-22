@@ -8,6 +8,7 @@ from .models.oldCartContents import OldCartContent
 from flask import Blueprint
 bp = Blueprint('oldcarts', __name__)
 
+# back end endpoint
 @bp.route('/oldcarts')
 def oldcarts():
     # find all old cart purchases:
