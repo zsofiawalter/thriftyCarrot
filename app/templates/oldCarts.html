@@ -1,9 +1,66 @@
+<!-- view -->
+<!-- cid, pid, product_name, price, category, store -->
+
 {% extends "base.html" %}
 
 {% block content %}
 
-<!-- view -->
-<!-- cid, pid, product_name, price, category, store -->
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.uid.label }}<br/>
+    {{ form.uid(size=32) }}<br/>
+    {% for error in form.uid.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  {{ form.submit(class_="btn btn-black") }}
+</form>
+
+<h2>User {{form.uid.data}}'s three most recent carts:</h2>
+<table class='table table-hover table-bordered container'>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Cart ID</th>
+      <th scope="col">Cart Name</th>
+      <th scope="col">Time Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for cart in carts%}
+      <tr>
+        <th scope="row">{{cart.cid}}</th>
+        <td>{{cart.cart_name}}</td>
+        <td>{{cart.time_created}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>User {{form.uid.data}}'s most recent cart contents:</h2>
+<table class='table table-hover table-bordered container'>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Cart ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Store</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for purchase in cartContent%}
+      <tr>
+        <th scope="row">{{purchase.cid}}</th>
+        <td>{{purchase.product_name}}</td>
+        <td>{{purchase.price}}</td>
+        <td>{{purchase.category}}</td>
+        <td>{{purchase.store}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
 <br><br>
 {% if current_user.is_authenticated %}
 <h2>Your old cart contents:</h2>
@@ -18,14 +75,13 @@
     </tr>
   </thead>
   <tbody>
-    {% for purchase in purchases%}
+    {% for purchase in purchase_history%}
       <tr>
         <th scope="row">{{purchase.cid}}</th>
-        <td>{{purchase.pid}}</td>
         <td>{{purchase.product_name}}</td>
-        <td>{{purchase.price}</td>
-        <td>{{purchase.category}</td>
-        <td>{{purchase.store}</td>
+        <td>{{purchase.price}}</td>
+        <td>{{purchase.category}}</td>
+        <td>{{purchase.store}}</td>
       </tr>
     {% endfor %}
   </tbody>

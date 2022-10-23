@@ -3,7 +3,7 @@ from flask_login import current_user
 import datetime
 
 from .models.product import Product
-from .models.oldCart import OldCart
+from .models.oldCartModel import OldCartModel
 
 from flask import Blueprint
 bp = Blueprint('index', __name__)
@@ -14,7 +14,7 @@ def index():
     products = Product.get_all(datetime.datetime(2022, 10, 1, 0, 0, 0))
     # find the products current user has bought:
     if current_user.is_authenticated:
-        purchases = OldCart.get_all_by_uid_since(
+        purchases = OldCartModel.get_all_by_uid_since(
             current_user.id, datetime.datetime(1980, 9, 14, 0, 0, 0))
     else:
         purchases = None
