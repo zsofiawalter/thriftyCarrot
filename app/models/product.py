@@ -1,4 +1,4 @@
-from datetime import datetime
+import datetime
 from flask import current_app as app
 
 # __id__, name, price, category, store, last_update
