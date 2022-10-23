@@ -23,6 +23,9 @@ def oldcarts():
     if form.validate_on_submit():
         carts = OldCartModel.get_all_by_uid(form.uid.data)
         cartContent = OldCartContentModel.get_most_recent_by_uid(form.uid.data)
+    else:
+        carts = None
+        cartContent = None
     # find all old cart purchases:
     if current_user.is_authenticated:
         purchases = OldCartModel.get_all_by_uid_since(

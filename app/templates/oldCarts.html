@@ -17,6 +17,7 @@
   {{ form.submit(class_="btn btn-black") }}
 </form>
 
+{% if form.validate_on_submit(): %}
 <h2>User {{form.uid.data}}'s three most recent carts:</h2>
 <table class='table table-hover table-bordered container'>
   <thead class="thead-dark">
@@ -60,6 +61,7 @@
     {% endfor %}
   </tbody>
 </table>
+{% endif %}
 
 <br><br>
 {% if current_user.is_authenticated %}
