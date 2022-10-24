@@ -20,6 +20,7 @@ CREATE TABLE Preferences (
     uid INT NOT NULL REFERENCES Users(id),
     pid INT NOT NULL REFERENCES Products(id),
     like_dislike BOOLEAN,
+    time_created timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
     PRIMARY KEY(uid, pid)
 );
 
