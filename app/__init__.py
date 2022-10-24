@@ -27,4 +27,10 @@ def create_app():
     from .products import bp as products_bp
     app.register_blueprint(products_bp)
 
+    from .freshyCarrot import bp as freshyCarrot_bp
+    app.register_blueprint(freshyCarrot_bp)
+
+    from .carts import bp as carts_bp
+    app.register_blueprint(carts_bp)
+    
     return app

@@ -75,7 +75,8 @@ def gen_preferences(num_preferences):
                 if(counter>=num_preferences): break
                 pid = j
                 like_dislike = random.choice([True, False])
-                writer.writerow([uid, pid, like_dislike])
+                time_created = fake.date_time()
+                writer.writerow([uid, pid, like_dislike, time_created])
                 counter += 1
         print(f'{num_preferences} generated;')
     return
