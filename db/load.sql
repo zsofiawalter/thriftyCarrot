@@ -17,6 +17,8 @@ SELECT pg_catalog.setval('public.oldcarts_cid_seq',
 
 \COPY OldCartContents FROM 'OldCartContent.csv' WITH DELIMITER ',' NULL '' CSV
 
+\COPY Preferences FROM 'Preferences.csv' WITH DELIMITER ',' NULL '' CSV
+
 -- \COPY Purchases FROM 'Purchases.csv' WITH DELIMITER ',' NULL '' CSV
 -- SELECT pg_catalog.setval('public.purchases_id_seq',
 --                          (SELECT MAX(id)+1 FROM Purchases),

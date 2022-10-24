@@ -24,4 +24,7 @@ def create_app():
     from .oldcarts import bp as oldcarts_bp
     app.register_blueprint(oldcarts_bp)
 
+    from .freshyCarrot import bp as freshyCarrot_bp
+    app.register_blueprint(freshyCarrot_bp)
+
     return app
