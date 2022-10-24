@@ -3,9 +3,7 @@ from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-import datetime
 
-from .models.product import Product
 from .models.freshyCarrotModel import FreshyCarrotModel
 
 from flask import Blueprint
