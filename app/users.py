@@ -5,8 +5,7 @@ from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 
-from .models.user import User
-
+from .models.userModel import UserModel
 
 from flask import Blueprint
 bp = Blueprint('users', __name__)
@@ -25,7 +24,7 @@ def login():
         return redirect(url_for('index.index'))
     form = LoginForm()
     if form.validate_on_submit():
-        user = User.get_by_auth(form.email.data, form.password.data)
+        user = UserModel.get_by_auth(form.email.data, form.password.data)
         if user is None:
             flash('Invalid email or password')
             return redirect(url_for('users.login'))
@@ -49,7 +48,7 @@ class RegistrationForm(FlaskForm):
     submit = SubmitField('Register')
 
     def validate_email(self, email):
-        if User.email_exists(email.data):
+        if UserModel.email_exists(email.data):
             raise ValidationError('Already a user with this email.')
 
 
@@ -59,7 +58,7 @@ def register():
         return redirect(url_for('index.index'))
     form = RegistrationForm()
     if form.validate_on_submit():
-        if User.register(form.email.data,
+        if UserModel.register(form.email.data,
                          form.password.data,
                          form.firstname.data,
                          form.lastname.data):
@@ -72,3 +71,20 @@ def register():
 def logout():
     logout_user()
     return redirect(url_for('index.index'))
+
+class userEntry(FlaskForm):
+    uid = StringField('UserID', validators=[DataRequired()])
+    submit = SubmitField('Search')
+
+# back end endpoint
+@bp.route('/userinquiry', methods=['GET', 'POST'])
+def oldcarts():
+    form = userEntry()
+    if form.validate_on_submit():
+        userInfo = UserModel.get_all_by_uid(form.uid.data)
+    else:
+        userInfo = None
+    # render the page by adding information to the userInquiry.html file
+    return render_template('userInquiry.html',
+                            form=form,
+                            userInfo=userInfo)

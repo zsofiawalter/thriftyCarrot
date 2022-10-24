@@ -16,7 +16,7 @@ fake = Faker()
 def get_csv_writer(f):
     return csv.writer(f, dialect='unix')
 
-# __id__, email, password, firstname, lastname, birthdate
+# __id__, email, password, firstname, lastname, birthdate, joindate
 def gen_users(num_users):
     with open('Users.csv', 'w') as f:
         writer = get_csv_writer(f)
@@ -32,7 +32,8 @@ def gen_users(num_users):
             firstname = name_components[0]
             lastname = name_components[-1]
             birthdate = profile['birthdate']
-            writer.writerow([uid, email, password, firstname, lastname, birthdate])
+            joindate = str(random.randrange(2021,2023)) + '-' + str(random.randrange(1,13)) + '-' + str(random.randrange(1,29))
+            writer.writerow([uid, email, password, firstname, lastname, birthdate, joindate])
         print(f'{num_users} generated')
     return
 

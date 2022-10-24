@@ -4,7 +4,8 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL, 
     firstname VARCHAR(30) NOT NULL, 
     lastname VARCHAR(30) NOT NULL, 
-    birthdate VARCHAR(25)
+    birthdate VARCHAR(25),
+    joindate VARCHAR(25) 
 );
 
 CREATE TABLE Products (
