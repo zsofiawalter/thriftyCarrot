@@ -1,0 +1,48 @@
+<!-- view -->
+<!-- cid, pid, product_name, price, category, store -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>User Inquiry</h1>
+
+<form action="" method="post" novalidate>
+  {{ form.hidden_tag() }}
+  <p>
+    {{ form.uid.label }}<br/>
+    {{ form.uid(size=32) }}<br/>
+    {% for error in form.uid.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  {{ form.submit(class_="btn btn-black") }}
+</form>
+
+{% if form.validate_on_submit(): %}
+&nbsp;
+<h2>User {{form.uid.data}}'s Info:</h2>
+<table class='table table-hover table-bordered container'>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Birthdate</th>
+      <th scope="col">Joined Since</th>
+    </tr>
+  </thead>
+  <tbody>
+      <tr>
+        <td>{{userInfo.firstname}}</td>
+        <td>{{userInfo.lastname}}</td>
+        <td>{{userInfo.email}}</td>
+        <td>{{userInfo.birthdate}}</td>
+        <td>{{userInfo.joindate}}</td>
+      </tr>
+  </tbody>
+</table>
+
+{% endif %}
+
+{% endblock %}

@@ -5,7 +5,7 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import datetime
 
-from .models.product import Product
+from .models.productModel import ProductModel
 from .models.oldCartModel import OldCartModel
 from .models.oldCartContentsModel import OldCartContentModel
 
