@@ -4,7 +4,8 @@ CREATE TABLE Users (
     password VARCHAR(255) NOT NULL, 
     firstname VARCHAR(30) NOT NULL, 
     lastname VARCHAR(30) NOT NULL, 
-    birthdate VARCHAR(25)
+    birthdate VARCHAR(25),
+    joindate VARCHAR(25) 
 );
 
 CREATE TABLE Products (
@@ -20,6 +21,7 @@ CREATE TABLE Preferences (
     uid INT NOT NULL REFERENCES Users(id),
     pid INT NOT NULL REFERENCES Products(id),
     like_dislike BOOLEAN,
+    time_created timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
     PRIMARY KEY(uid, pid)
 );
 
