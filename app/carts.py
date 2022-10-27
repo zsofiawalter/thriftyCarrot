@@ -1,13 +1,8 @@
 from flask import render_template
-from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
-import datetime
 
-from .models.productModel import ProductModel
-from .models.oldCartModel import OldCartModel
-from .models.oldCartContentModel import OldCartContentModel
 from .models.cartModel import CartModel
 
 from flask import Blueprint
@@ -22,7 +17,7 @@ class userEntry(FlaskForm):
 def carts():
     form = userEntry()
     if form.validate_on_submit():
-        cart = Cart.get(form.uid.data)
+        cart = CartModel.get_all_by_uid(form.uid.data)
     else:
         cart = None
 
