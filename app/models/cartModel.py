@@ -1,11 +1,8 @@
 from flask import current_app as app
 
 # __uid__, __pid__, quantity
-class Cart:
-    """
-    This is just a TEMPLATE for Cart, you should change this by adding or 
-        replacing new columns, etc. for your design.
-    """
+class CartModel:
+    #TODO: add product info to cart
     def __init__(self, uid, pid, quantity):
         self.uid = uid
         self.pid = pid
@@ -19,4 +16,4 @@ FROM Carts
 WHERE uid = :uid
 ''',
                               uid=uid)
-        return [Cart(*row) for row in rows]
+        return [CartModel(*row) for row in rows]
