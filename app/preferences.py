@@ -1,10 +1,9 @@
 from flask import render_template
-from flask_login import current_user
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 
-from .models.freshyCarrotModel import FreshyCarrotModel
+from .models.preferenceModel import PreferenceModel
 
 from flask import Blueprint
 bp = Blueprint('freshyCarrot', __name__)
@@ -18,8 +17,8 @@ class userEntry(FlaskForm):
 def freshyCarrot():
     form = userEntry()
     if form.validate_on_submit():
-        recentFresh = FreshyCarrotModel.get_5_recent_fresh_by_uid(form.uid.data)
-        recentRotten = FreshyCarrotModel.get_5_recent_rotten_by_uid(form.uid.data)
+        recentFresh = PreferenceModel.get_5_recent_fresh_by_uid(form.uid.data)
+        recentRotten = PreferenceModel.get_5_recent_rotten_by_uid(form.uid.data)
     else:
         recentFresh = None
         recentRotten = None

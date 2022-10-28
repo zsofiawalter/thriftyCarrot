@@ -5,9 +5,8 @@ from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
 import datetime
 
-from .models.productModel import ProductModel
 from .models.oldCartModel import OldCartModel
-from .models.oldCartContentsModel import OldCartContentModel
+from .models.oldCartContentModel import OldCartContentModel
 
 from flask import Blueprint
 bp = Blueprint('oldcarts', __name__)
