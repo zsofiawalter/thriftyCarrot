@@ -36,7 +36,7 @@
     {% for fresh in recentFresh%}
       <tr>
         <th scope="row">{{fresh.pid}}</th>
-        <td>{{fresh.name}}</td>
+        <td>{{fresh.product_name}}</td>
         <td>{{fresh.like_dislike}}</td>
         <td>{{fresh.time_created}}</td>
 
@@ -64,7 +64,7 @@
     {% for rotten in recentRotten%}
       <tr>
         <th scope="row">{{rotten.pid}}</th>
-        <td>{{rotten.name}}</td>
+        <td>{{rotten.product_name}}</td>
         <td>{{rotten.like_dislike}}</td>
         <td>{{rotten.time_created}}</td>
 
