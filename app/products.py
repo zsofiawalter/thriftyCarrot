@@ -14,7 +14,7 @@ class userEntry(FlaskForm):
 
 # back end endpoint
 @bp.route('/products', methods=['GET', 'POST'])
-def oldcarts():
+def products():
     form = userEntry()
     if form.validate_on_submit():
         products = ProductModel.getKMostExpensive(form.k.data)

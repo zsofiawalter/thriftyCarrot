@@ -17,7 +17,7 @@ class userEntry(FlaskForm):
 def carts():
     form = userEntry()
     if form.validate_on_submit():
-        cart = CartModel.get_all_by_uid(form.uid.data)
+        cart = CartModel.get(form.uid.data)
     else:
         cart = None
 
