@@ -9,7 +9,7 @@ from flask import Blueprint
 bp = Blueprint('index', __name__)
 
 
-@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/home', methods=['GET', 'POST'])
 def index():
     # get all available products for sale:
      products = ProductModel.get_all(datetime.datetime(2022, 10, 1, 0, 0, 0))
