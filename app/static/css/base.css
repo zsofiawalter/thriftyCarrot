@@ -1,0 +1,66 @@
+section {
+color: #fff;
+text-align: center;
+}
+
+h1 {
+    size: 32px;
+}
+
+.container {
+display: table;
+width: 75%;
+}
+
+.left-half {
+background-color: #ff9e2c;
+position: absolute;
+left: 0px;
+width: 50%;
+}
+
+.right-half {
+background-color: #b6701e;
+position: absolute;
+right: 0px;
+width: 50%;
+}
+
+body {
+    font-family: "Lato", sans-serif;
+}
+
+.main-head {
+    height: 150px;
+    background: #FFF;
+}
+
+.navbar {
+    height: 100%;
+    background-color: #AFF4C6;
+    overflow-x: hidden;
+    padding-top: 20px;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.main {
+    padding: 0px 10px;
+}
+
+.login-main-text {
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+
+.login-main-text h2 {
+    font-weight: 300;
+}
+
+.btn-login {
+    background-color: hsl(#AFF4C6);
+    outline: #95cea8;
+    color: #fff;
+}

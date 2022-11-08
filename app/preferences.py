@@ -6,15 +6,15 @@ from wtforms.validators import DataRequired
 from .models.preferenceModel import PreferenceModel
 
 from flask import Blueprint
-bp = Blueprint('freshyCarrot', __name__)
+bp = Blueprint('preferences', __name__)
 
 class userEntry(FlaskForm):
     uid = StringField('UserID', validators=[DataRequired()])
     submit = SubmitField('Search For User Freshy Carrots')
 
 # back end endpoint
-@bp.route('/freshyCarrot', methods=['GET', 'POST'])
-def freshyCarrot():
+@bp.route('/preferences', methods=['GET', 'POST'])
+def preferences():
     form = userEntry()
     if form.validate_on_submit():
         recentFresh = PreferenceModel.get_5_recent_fresh_by_uid(form.uid.data)
@@ -23,7 +23,7 @@ def freshyCarrot():
         recentFresh = None
         recentRotten = None
     # render the page by adding information to the freshyCarrots.html file
-    return render_template('freshyCarrots.html',
+    return render_template('preferences.html',
                             form=form,
                             recentFresh=recentFresh,
                             recentRotten=recentRotten)
