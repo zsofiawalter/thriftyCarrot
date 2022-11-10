@@ -15,7 +15,7 @@ SELECT pg_catalog.setval('public.products_id_seq',
 -- CART IN PROGRESS
 \COPY Carts FROM 'Carts.csv' WITH DELIMITER ',' NULL '' CSV
 
-\COPY CartList FROM 'CartLists.csv' WITH DELIMITER ',' NULL '' CSV
+\COPY CartLists FROM 'CartLists.csv' WITH DELIMITER ',' NULL '' CSV
 
 \COPY CartContents FROM 'CartContents.csv' WITH DELIMITER ',' NULL '' CSV
 

@@ -30,7 +30,7 @@ VALUES(:uid, :cart_name, :time_started)
                                 cart_name=cart_name,
                                 time_started=time_started)
         except Exception as e:
-            print str(e)
+            print(str(e))
 
 
 # __uid__, product_name

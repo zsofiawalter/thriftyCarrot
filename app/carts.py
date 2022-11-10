@@ -35,7 +35,7 @@ def newcart():
             # add product names to cart list
             for product in form.products.data:
                 # add product to cart list
-                CartListModel.addToCartList(uid, product.data)
+                CartListModel.addToCartList(uid, product['product'])
 
 
         return render_template('newCart.html',

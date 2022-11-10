@@ -35,7 +35,7 @@ CREATE TABLE Carts (
 );
 
 -- List of products in carts during initial step of building cart
-CREATE TABLE CartList (
+CREATE TABLE CartLists (
     uid INT NOT NULL REFERENCES Users(id),
     product_name VARCHAR(50) NOT NULL
 );
