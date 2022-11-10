@@ -3,7 +3,32 @@
 
 {% extends "base.html" %}
 
-{% block content %}
+<body>
+  <a id="add" href="#">Add Product</a>
+  <hr/>
+
+  {# Show all subforms #}
+  <form id="lap-form" action="" method="POST" role="form">
+      {{ form.hidden_tag() }}
+
+      <div id="subforms-container">
+          {% for subform in form.products %}
+              {{ macros.render_product_form(subform, loop.index0) }}
+          {% endfor %}
+      </div>
+
+      <button type="submit">Send</button>
+  </form>
+
+  {% if form.errors %}
+      {{ form.errors }}
+  {% endif %}
+
+  {# Form template #}
+  {{ macros.render_product_form(_template, '_') }}
+</body>
+
+<!-- {% block content %}
 
 <form action="" method="post" novalidate>
   {{ form.hidden_tag() }}
@@ -19,4 +44,4 @@
   {{ form.submit(class_="btn btn-black") }}
 </form>
 
-{% endblock %}
+{% endblock %} -->

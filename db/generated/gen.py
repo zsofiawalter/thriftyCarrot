@@ -87,10 +87,11 @@ def gen_carts(num_carts):
     with open('Carts.csv', 'w') as f:
         writer = get_csv_writer(f)
         print('Carts...', end=' ', flush=True)
+        randomUserList = random.sample(range(0, num_users), k=num_carts)
         for i in range(num_carts):
             if i % 100 == 0:
                 print(f'{i}', end=' ', flush=True)
-            uid = fake.random_int(min=0, max=num_users-1)
+            uid = randomUserList[i]
             cart_name = fake.sentence(nb_words=2)[:-1]
             time_started = fake.date_time()
             writer.writerow([uid, cart_name, time_started])

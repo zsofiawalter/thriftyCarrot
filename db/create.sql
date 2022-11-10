@@ -29,14 +29,14 @@ CREATE TABLE Preferences (
 -- CART IN PROGRESS
 -- Stores current cart name
 CREATE TABLE Carts (
-    uid INT NOT NULL PRIMARY KEY REFERENCES Users(uid),
+    uid INT NOT NULL PRIMARY KEY REFERENCES Users(id),
     cart_name VARCHAR(30) NOT NULL,
-    time_started timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC'),
+    time_started timestamp without time zone NOT NULL DEFAULT (current_timestamp AT TIME ZONE 'UTC')
 );
 
 -- List of products in carts during initial step of building cart
 CREATE TABLE CartList (
-    uid INT NOT NULL REFERENCES Users(uid),
+    uid INT NOT NULL REFERENCES Users(id),
     product_name VARCHAR(50) NOT NULL
 );
 
