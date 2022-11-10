@@ -1,3 +1,4 @@
+from typing import Any
 from flask_login import UserMixin
 from flask import current_app as app
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,6 +7,9 @@ from .. import login
 
 # __id__, email, password, firstname, lastname, birthdate, joindate
 class UserModel(UserMixin):
+
+    id: Any
+
     def __init__(self, id, email, firstname, lastname, birthdate, joindate):
         self.id = id
         self.email = email
@@ -41,6 +45,7 @@ WHERE id = :uid
                               uid=uid)
         return UserModel(*(rows[0][0:]))
 
+
     @staticmethod
     def email_exists(email):
         rows = app.db.execute("""
@@ -71,6 +76,54 @@ RETURNING id
             return None
 
     @staticmethod
+    def update_email(email, id):
+        try:
+            rows = app.db.execute("""
+UPDATE Users
+SET email = :email
+WHERE id = :id
+""",
+                                  email=email, id = id)
+            return UserModel.get(id)
+        except Exception as e:
+            # likely email already in use; better error checking and reporting needed;
+            # the following simply prints the error to the console:
+            print(str(e))
+            return None
+
+    @staticmethod
+    def update_firstname(firstname, id):
+        try:
+            rows = app.db.execute("""
+UPDATE Users
+SET firstname = :firstname
+WHERE id = :id
+""",
+                                  id=id, firstname = firstname)
+            return UserModel.get(id)
+        except Exception as e:
+            # likely email already in use; better error checking and reporting needed;
+            # the following simply prints the error to the console:
+            print(str(e))
+            return None
+
+    @staticmethod
+    def update_lastname(lastname, id):
+        try:
+            rows = app.db.execute("""
+UPDATE Users
+SET lastname = :lastname
+WHERE id = :id
+""",
+                                  id=id, lastname = lastname)
+            return UserModel.get(id)
+        except Exception as e:
+            # likely email already in use; better error checking and reporting needed;
+            # the following simply prints the error to the console:
+            print(str(e))
+            return None
+
+    @staticmethod
     @login.user_loader
     def get(id):
         rows = app.db.execute("""
@@ -80,3 +133,5 @@ WHERE id = :id
 """,
                               id=id)
         return UserModel(*(rows[0])) if rows else None
+
+

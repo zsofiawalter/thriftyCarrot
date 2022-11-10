@@ -13,8 +13,9 @@
   <ul class="navbar">
     {% block login %}
       <img src="ThriftyCarrotMockLogo.png" alt="Cartoon Carrot Logo">
-      <h1 style="color:#ffffff">Thrifty Carrot</h1>
+      <h1 style="color:#ffffff" >Thrifty Carrot</h1>
       {% if current_user.is_authenticated %}
+        <a href="{{ url_for('users.profile') }}" type="button" class="btn btn-login">User Profile</a>
         <a href="{{ url_for('users.logout') }}" type="button" class="btn btn-login">Log Out</a>
       {% else %}
         <a href="{{ url_for('users.login') }}" type="button" class="btn btn-login">Log in</a>

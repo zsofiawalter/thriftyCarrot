@@ -1,6 +1,6 @@
 from flask import render_template, redirect, url_for, flash, request
 from werkzeug.urls import url_parse
-from flask_login import login_user, logout_user, current_user
+from flask_login import login_user, logout_user, current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
 from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
@@ -36,6 +36,41 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
+
+
+@bp.route('/userProfile', methods=['GET', 'POST'])
+@login_required
+def profile():
+    userInfo = UserModel.get_all_by_uid(current_user.id)
+    return render_template('userProfile.html',userInfo=userInfo)
+
+class UpdateForm(FlaskForm):
+    firstname = StringField('First Name')
+    lastname = StringField('Last Name')
+    email = StringField('Email')
+    submit = SubmitField('Update')
+
+    def validate_email(self, email):
+        if UserModel.email_exists(email.data):
+            raise ValidationError('Already a user with this email.')
+
+    
+
+@bp.route('/userUpdate', methods=['GET', 'POST'])
+@login_required
+def update():
+    form = UpdateForm()
+    userInfo = UserModel.get_all_by_uid(current_user.id)
+    id = current_user.id
+    if form.validate_on_submit():
+        if UserModel.update_email(form.email.data, id):
+            flash('You have updated your email.')
+        if UserModel.update_firstname(form.firstname.data, id):
+            flash('You have updated your first name.')
+        if UserModel.update_lastname(form.lastname.data, id):
+            flash('You have updated your last name.')
+        return redirect(url_for('users.profile'))
+    return render_template('userUpdate.html',userInfo=userInfo, form=form)
 
 class RegistrationForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired()])
