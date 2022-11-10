@@ -1,5 +1,5 @@
-from flask import render_template, redirect, url_for
-from flask_login import current_user
+from flask import render_template
+from flask_login import current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, Form
 from wtforms.validators import DataRequired
@@ -22,24 +22,22 @@ class newCartForm(FlaskForm):
     submit = SubmitField('Next')
 
 @bp.route('/newcart', methods=['GET', 'POST'])
+@login_required
 def newcart():
-    if current_user.is_authenticated:
-        form = newCartForm()
-        template_form = newCartProducts(prefix='products-_-')
+    form = newCartForm()
+    template_form = newCartProducts(prefix='products-_-')
 
-        if form.validate_on_submit():
-            uid = current_user.id
-            cart_name = form.cart_name
-            time_started = datetime.now()
-            CartModel.startCart(uid, cart_name.data, time_started)
-            # add product names to cart list
-            for product in form.products.data:
-                # add product to cart list
-                CartListModel.addToCartList(uid, product['product'])
+    if form.validate_on_submit():
+        uid = current_user.id
+        cart_name = form.cart_name
+        time_started = datetime.now()
+        CartModel.startCart(uid, cart_name.data, time_started)
+        # add product names to cart list
+        for product in form.products.data:
+            # add product to cart list
+            CartListModel.addToCartList(uid, product['product'])
 
 
-        return render_template('newCart.html',
-                                form = form,
-                                _template = template_form)
-    else:
-        return redirect(url_for('users.login'))
+    return render_template('newCart.html',
+                            form = form,
+                            _template = template_form)

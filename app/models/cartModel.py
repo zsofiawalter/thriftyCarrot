@@ -1,5 +1,8 @@
 from flask import current_app as app
 
+#exception handling
+from sqlalchemy.exc import IntegrityError
+from psycopg2.errors import UniqueViolation
 
 # __uid__, cart_name, time_started
 # name of current cart user is working on
@@ -29,8 +32,18 @@ VALUES(:uid, :cart_name, :time_started)
                                 uid=uid,
                                 cart_name=cart_name,
                                 time_started=time_started)
-        except Exception as e:
-            print(str(e))
+        except IntegrityError as e:
+            assert isinstance(e.orig, UniqueViolation)
+        finally:
+            print(str(Exception))
+
+    @staticmethod
+    def clearCart(uid):
+        app.db.execute("""
+DELETE FROM Carts
+WHERE Carts.uid = :uid
+""",
+                                uid=uid)
 
 
 # __uid__, product_name
@@ -42,12 +55,20 @@ class CartListModel:
     
     @staticmethod
     def addToCartList(uid, product_name):
-            rows = app.db.execute("""
+        app.db.execute("""
 INSERT INTO CartLists(uid, product_name)
 VALUES(:uid, :product_name)
 """,
                                 uid=uid,
                                 product_name=product_name)
+    
+    @staticmethod
+    def clearCartList(uid):
+        app.db.execute("""
+DELETE FROM CartLists
+WHERE CartLists.uid = :uid
+""",
+                                uid=uid)
 
 
 # __uid__, __pid__, quantity
@@ -57,3 +78,11 @@ class CartContentsModel:
         self.uid = uid
         self.pid = pid
         self.quantity = quantity
+
+    @staticmethod
+    def clearCartContents(uid):
+        app.db.execute("""
+DELETE FROM CartContents
+WHERE CartContents.uid = :uid
+""",
+                                uid=uid)
