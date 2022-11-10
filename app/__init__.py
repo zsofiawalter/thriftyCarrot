@@ -15,8 +15,8 @@ def create_app():
     app.db = DB(app)
     login.init_app(app)
 
-    from .index import bp as index_bp
-    app.register_blueprint(index_bp)
+    from .home import bp as home_bp
+    app.register_blueprint(home_bp)
 
     from .users import bp as user_bp
     app.register_blueprint(user_bp)
@@ -27,8 +27,8 @@ def create_app():
     from .products import bp as products_bp
     app.register_blueprint(products_bp)
 
-    from .freshyCarrot import bp as freshyCarrot_bp
-    app.register_blueprint(freshyCarrot_bp)
+    from .preferences import bp as preferences_bp
+    app.register_blueprint(preferences_bp)
 
     from .carts import bp as carts_bp
     app.register_blueprint(carts_bp)
