@@ -13,11 +13,13 @@ Adapted from: https://www.rmedgar.com/blog/dynamic-fields-flask-wtf/
 
 {%- macro render_product_form(subform, index) %}
     <div id="product-{{ index }}-form" class="{% if index != '_' %}subform{% else %}is-hidden{% endif %}" data-index="{{ index }}">
-        <div>
-            {{ subform.product.label }}
-            {{ subform.product }}
-        </div>
-        <a class="remove" href="#">x</a>
-        <hr/>
+        <ul class="productlist"> 
+            <div>
+                {{ subform.product.label }}
+                {{ subform.product }}
+            </div>
+            <a class="remove" href="#">x</a>
+            <hr/>
+        </ul>
     </div>
 {%- endmacro %}

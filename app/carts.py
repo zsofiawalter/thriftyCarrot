@@ -23,11 +23,11 @@ class newCartForm(FlaskForm):
 
 @bp.route('/newcart', methods=['GET', 'POST'])
 def newcart():
-    if(current_user.is_authenticated):
+    if current_user.is_authenticated:
         form = newCartForm()
         template_form = newCartProducts(prefix='products-_-')
 
-        if(form.validate_on_submit):
+        if form.validate_on_submit():
             uid = current_user.id
             cart_name = form.cart_name
             time_started = datetime.now()

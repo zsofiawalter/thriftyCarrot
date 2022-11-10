@@ -7,12 +7,17 @@
   <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
   <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <style>
+    .is-hidden {
+      display: none;
+    }
+  </style>
 </head>
 
 <body>
   <ul class="navbar">
     {% block login %}
-      <img src="ThriftyCarrotMockLogo.png" alt="Cartoon Carrot Logo">
+      <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/13306/carrot-vegetable-clipart-md.png" alt="Cartoon Carrot Logo" height="80">
       <h1 style="color:#ffffff">Thrifty Carrot</h1>
       {% if current_user.is_authenticated %}
         <a href="{{ url_for('users.logout') }}" type="button" class="btn btn-login">Log Out</a>

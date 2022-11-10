@@ -21,13 +21,17 @@ WHERE uid = :uid
     
     @staticmethod
     def startCart(uid, cart_name, time_started):
-        rows = app.db.execute('''
-INSERT INTO Carts(uid, product_name, time_started)
+        try:
+            rows = app.db.execute('''
+INSERT INTO Carts(uid, cart_name, time_started)
 VALUES(:uid, :cart_name, :time_started)
 ''', 
                                 uid=uid,
                                 cart_name=cart_name,
                                 time_started=time_started)
+        except Exception as e:
+            print str(e)
+
 
 # __uid__, product_name
 # list of things user wants to buy
