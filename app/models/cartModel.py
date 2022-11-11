@@ -51,7 +51,17 @@ WHERE Carts.uid = :uid
 class CartListModel:
     def __init__(self, uid, product_name):
         self.uid = uid
-        self.carproduct_namename = product_name
+        self.product_name = product_name
+    
+    @staticmethod
+    def get(uid):
+        rows = app.db.execute("""
+SELECT uid, product_name
+FROM CartLists
+WHERE uid = :uid
+""",
+                                uid=uid)
+        return [CartListModel(*row) for row in rows]
     
     @staticmethod
     def addToCartList(uid, product_name):

@@ -1,5 +1,35 @@
 {% extends "base.html" %}
 
-<p>
-    Page to work on current cart in progress
-</p>>
+{% block content %}
+
+<h2 align="center">
+    {{ cart_name }}
+</h2>
+
+{% for i in range(cartLength)%}
+    <h3 align="center">
+        {{ cartList[i].product_name }}
+    </h3>
+    <table class='table table-hover table-bordered container'>
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Store</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in searchResults[i] %}
+            <tr>
+            <td>{{product.name}}</td>
+            <td>{{product.price}}</td>
+            <td>{{product.category}}</td>
+            <td>{{product.store}}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endfor %}
+
+{% endblock content %}
