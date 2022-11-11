@@ -3,7 +3,7 @@ from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional, URL
 from flask_datepicker import datepicker
 
 from .models.userModel import UserModel
@@ -42,11 +42,10 @@ def login():
 @login_required
 def profile():
     userInfo = UserModel.get_all_by_uid(current_user.id)
-    return render_template('userProfile.html',userInfo=userInfo)
+    return render_template('userProfile.html',userInfo=userInfo, profilePic = UserModel.profilePicUrl)
 
 
 class UpdateForm(FlaskForm):
-
     firstname = StringField('First Name')
     lastname = StringField('Last Name')
     email = StringField('Email', validators=[Optional(), Email()])
@@ -81,7 +80,7 @@ def update():
         if form.password.data and UserModel.update_password(form.birthdate.data, id):
             flash('You have updated your password.')
         return redirect(url_for('users.profile'))
-    return render_template('userUpdate.html',userInfo=userInfo, form=form)
+    return render_template('userUpdate.html',userInfo=userInfo, profilePic = UserModel.profilePicUrl, form=form)
 
 class RegistrationForm(FlaskForm):
     firstname = StringField('First Name', validators=[DataRequired()])

@@ -9,7 +9,7 @@ from .. import login
 class UserModel(UserMixin):
 
     id: Any
-
+    profilePicUrl = "https://cdn.pixabay.com/photo/2022/05/28/04/21/art-7226507_1280.png"
     def __init__(self, id, email, firstname, lastname, birthdate, joindate):
         self.id = id
         self.email = email
@@ -102,8 +102,8 @@ WHERE id = :id
                                   id=id, firstname = firstname)
             return UserModel.get(id)
         except Exception as e:
-            # likely email already in use; better error checking and reporting needed;
-            # the following simply prints the error to the console:
+            # the following simply prints the error to the console.
+            # add error checking as necessary
             print(str(e))
             return None
 
@@ -118,8 +118,8 @@ WHERE id = :id
                                   id=id, lastname = lastname)
             return UserModel.get(id)
         except Exception as e:
-            # likely email already in use; better error checking and reporting needed;
-            # the following simply prints the error to the console:
+            # the following simply prints the error to the console.
+            # add error checking as necessary
             print(str(e))
             return None
 
@@ -134,8 +134,8 @@ WHERE id = :id
                                   id=id, birthdate = birthdate)
             return UserModel.get(id)
         except Exception as e:
-            # likely email already in use; better error checking and reporting needed;
-            # the following simply prints the error to the console:
+            # the following simply prints the error to the console.
+            # add error checking as necessary
             print(str(e))
             return None
 
@@ -150,10 +150,11 @@ WHERE id = :id
                                   id=id, password = password)
             return UserModel.get(id)
         except Exception as e:
-            # likely email already in use; better error checking and reporting needed;
-            # the following simply prints the error to the console:
+            # the following simply prints the error to the console.
+            # add error checking as necessary
             print(str(e))
             return None
+
 
     @staticmethod
     @login.user_loader
