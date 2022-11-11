@@ -18,7 +18,7 @@ class newCartProducts(Form):
     product = StringField('Product', validators=[DataRequired()])
 
 class newCartForm(FlaskForm):
-    cart_name = StringField('Cart Name', validators=[DataRequired()])
+    cart_name = StringField('Carrot Cart Name', validators=[DataRequired()])
     products = FieldList(FormField(newCartProducts), min_entries=1, max_entries=50)
     submit = SubmitField('Next')
 
