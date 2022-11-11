@@ -37,7 +37,7 @@ body {
 
 .navbar {
     height: 100%;
-    background-color: #AFF4C6;
+    background-color: #c0e9cd;
     overflow-x: hidden;
     padding-top: 20px;
     list-style-type: none;
@@ -45,6 +45,9 @@ body {
     padding: 0;
 }
 
+.title-nav {
+    white-space: nowrap;
+}
 .main {
     padding: 0px 10px;
 }
