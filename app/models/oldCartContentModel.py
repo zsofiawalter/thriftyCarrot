@@ -46,3 +46,34 @@ ORDER BY time_created DESC
                               uid=uid,
                               since=since)
         return [OldCartContentModel(*row) for row in rows]
+
+    @staticmethod
+    def get_all_oldcartcontent_by_uid(uid):
+        rows = app.db.execute('''
+WITH AllOldCarts AS
+(SELECT cid
+FROM OldCarts
+WHERE uid = :uid
+ORDER BY time_created DESC)
+SELECT OldCartContents.cid, OldCartContents.pid, OldCartContents.product_name, OldCartContents.price, OldCartContents.category, OldCartContents.store
+FROM OldCartContents, AllOldCarts
+WHERE AllOldCarts.cid = OldCartContents.cid
+''',
+                              uid=uid)        
+        return [OldCartContentModel(*row) for row in rows]
+
+    @staticmethod
+    def get_content_of_recent_three_by_uid(uid):
+        rows = app.db.execute('''
+WITH RecentThree AS
+(SELECT cid
+FROM OldCarts
+WHERE uid = :uid
+ORDER BY time_created DESC
+limit 3)
+SELECT OldCartContents.cid, OldCartContents.pid, OldCartContents.product_name, OldCartContents.price, OldCartContents.category, OldCartContents.store
+FROM OldCartContents, RecentThree
+WHERE RecentThree.cid = OldCartContents.cid
+''',
+                              uid=uid)        
+        return [OldCartContentModel(*row) for row in rows]
