@@ -138,6 +138,23 @@ WHERE id = :id
             # the following simply prints the error to the console:
             print(str(e))
             return None
+
+    @staticmethod
+    def update_password(password, id):
+        try:
+            rows = app.db.execute("""
+UPDATE Users
+SET password = :password
+WHERE id = :id
+""",
+                                  id=id, password = password)
+            return UserModel.get(id)
+        except Exception as e:
+            # likely email already in use; better error checking and reporting needed;
+            # the following simply prints the error to the console:
+            print(str(e))
+            return None
+
     @staticmethod
     @login.user_loader
     def get(id):
