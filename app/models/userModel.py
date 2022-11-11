@@ -124,6 +124,21 @@ WHERE id = :id
             return None
 
     @staticmethod
+    def update_birthdate(birthdate, id):
+        try:
+            rows = app.db.execute("""
+UPDATE Users
+SET birthdate = :birthdate
+WHERE id = :id
+""",
+                                  id=id, birthdate = birthdate)
+            return UserModel.get(id)
+        except Exception as e:
+            # likely email already in use; better error checking and reporting needed;
+            # the following simply prints the error to the console:
+            print(str(e))
+            return None
+    @staticmethod
     @login.user_loader
     def get(id):
         rows = app.db.execute("""

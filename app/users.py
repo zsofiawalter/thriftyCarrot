@@ -2,8 +2,9 @@ from flask import render_template, redirect, url_for, flash, request
 from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user, login_required
 from flask_wtf import FlaskForm
-from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
+from wtforms import StringField, PasswordField, BooleanField, SubmitField, DateField
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional
+from flask_datepicker import datepicker
 
 from .models.userModel import UserModel
 
@@ -36,25 +37,51 @@ def login():
         return redirect(next_page)
     return render_template('login.html', title='Sign In', form=form)
 
-
+#use prepopulated field values instead of null?
 
 @bp.route('/userProfile', methods=['GET', 'POST'])
 @login_required
 def profile():
+    form = UpdateForm()
     userInfo = UserModel.get_all_by_uid(current_user.id)
-    return render_template('userProfile.html',userInfo=userInfo)
+    if (form.firstname.data or form.lastname.data):
+        nameUpdate(form)
+        return redirect(url_for('users.profile'))
+    if (form.email.data):
+        emailUpdate(form)
+        return redirect(url_for('users.profile'))
+    return render_template('userProfile.html',userInfo=userInfo, form=form)
+
 
 class UpdateForm(FlaskForm):
+
     firstname = StringField('First Name')
     lastname = StringField('Last Name')
-    email = StringField('Email')
+    email = StringField('Email', validators=[Optional(), Email()])
+    birthdate = DateField('Birth Date', validators=[Optional()])
     submit = SubmitField('Update')
-
     def validate_email(self, email):
         if UserModel.email_exists(email.data):
             raise ValidationError('Already a user with this email.')
 
     
+
+def nameUpdate(form):
+    id = current_user.id
+    if form.validate_on_submit():
+        if form.firstname.data and UserModel.update_firstname(form.firstname.data, id):
+            flash('You have updated your first name.')
+        if form.lastname.data and UserModel.update_lastname(form.lastname.data, id):
+            flash('You have updated your last name.')
+    return "Updated name values"
+
+def emailUpdate(form):
+    id = current_user.id
+    if form.validate_on_submit():
+        if form.email.data and UserModel.update_email(form.email.data, id):
+            flash('You have updated your email.')
+    return "Updated email value"
+
 
 @bp.route('/userUpdate', methods=['GET', 'POST'])
 @login_required
@@ -63,12 +90,14 @@ def update():
     userInfo = UserModel.get_all_by_uid(current_user.id)
     id = current_user.id
     if form.validate_on_submit():
-        if UserModel.update_email(form.email.data, id):
+        if form.email.data and UserModel.update_email(form.email.data, id):
             flash('You have updated your email.')
-        if UserModel.update_firstname(form.firstname.data, id):
+        if form.firstname.data and UserModel.update_firstname(form.firstname.data, id):
             flash('You have updated your first name.')
-        if UserModel.update_lastname(form.lastname.data, id):
+        if form.lastname.data and UserModel.update_lastname(form.lastname.data, id):
             flash('You have updated your last name.')
+        if form.birthdate.data and UserModel.update_birthdate(form.birthdate.data, id):
+            flash('You have updated your birth date.')
         return redirect(url_for('users.profile'))
     return render_template('userUpdate.html',userInfo=userInfo, form=form)
 

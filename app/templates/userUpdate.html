@@ -26,13 +26,10 @@
   <form action="" method="post" novalidate>
     {{ form.hidden_tag() }}
   <div class="col-md-8">
-      <div class="card mb-3">
+      <div class="card">
         <div class="card-body">
-          <div class="row">
-            <div class="col-sm-3">
-              <h6 class="mb-0">Full Name</h6>
-            </div>
-            <div class="col-sm-9 text-secondary">
+          <fieldset class="row">
+            <div class="text-secondary">
               {{ form.firstname.label }}<br/>
               {{ form.firstname(size=32) }}<br/>
               {% for error in form.firstname.errors %}
@@ -46,7 +43,7 @@
           
           
             </div>
-          </div>
+          </fieldset>
           <hr>
           <div class="row">
             <div class="col-sm-3">
@@ -67,7 +64,12 @@
               <h6 class="mb-0">Birth date</h6>
             </div>
             <div class="col-sm-9 text-secondary">
-              <input type="text" class="form-control">
+              {{ form.birthdate.label }}<br/>
+              {{ form.birthdate(size=32)}}<br/>
+              {% for error in form.birthdate.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+
             </div>
           </div>
           <hr>
@@ -82,7 +84,7 @@
           <hr>
           <div class="row">
             <div class="col-sm-12">
-              {{ form.submit(class_="btn btn-primary") }}
+              {{ form.submit(class_="btn btn-info") }}
             </div>
           </div>
         </div>
