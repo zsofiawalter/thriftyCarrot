@@ -17,7 +17,9 @@
 <body>
   <ul class="navbar">
     {% block login %}
-      <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/13306/carrot-vegetable-clipart-md.png" alt="Cartoon Carrot Logo" height="80">
+      <a href="{{ url_for('home.home') }}">
+        <img src="https://creazilla-store.fra1.digitaloceanspaces.com/cliparts/13306/carrot-vegetable-clipart-md.png" alt="Cartoon Carrot Logo" height="80">
+      </a>
       <h1 style="color:#ffffff">Thrifty Carrot</h1>
       {% if current_user.is_authenticated %}
         <a href="{{ url_for('users.logout') }}" type="button" class="btn btn-login">Log Out</a>
