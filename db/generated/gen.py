@@ -9,7 +9,6 @@ num_preferences = 500
 num_itemsInCart = 1000
 num_carts = 50
 num_oldCarts = 500
-num_purchases = 2500
 
 Faker.seed(0)
 fake = Faker()
@@ -189,4 +188,4 @@ gen_cartLists(num_itemsInCart)
 gen_cartContents(num_itemsInCart)
 # old carts
 gen_oldCarts(num_oldCarts)
-gen_oldCartContent(num_purchases, num_oldCarts, products)
+gen_oldCartContent(num_oldCarts, products)
