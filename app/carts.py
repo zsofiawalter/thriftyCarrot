@@ -42,6 +42,7 @@ def newcart():
         for product in form.products.data:
             # add product to cart list
             CartListModel.addToCartList(uid, product['product'])
+            print(product)
         return redirect(url_for('carts.cartInProgress', cart_name=cart_name))
 
     return render_template('newCart.html',
