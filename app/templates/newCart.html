@@ -143,30 +143,27 @@
 
 <body>
 
+    <a id="add" href="#">Add Product</a>
 
-  {# Show all subforms #}
-  <form id="product-form" action="" method="POST" role="form">
+    {# Show all subforms #}
+    <form id="product-form" action="" method="POST" role="form">
       {{ form.hidden_tag() }}
 
-      <p>
+      <div>
         {{ form.cart_name.label }}<br/>
         {{ form.cart_name(size=32) }}<br/>
         {% for error in form.cart_name.errors %}
         <span style="color: red;">[{{ error }}]</span>
         {% endfor %}
-      </p>
+      </div>
 
-      <p id="subforms-container">
+      <div id="subforms-container">
           {% for subform in form.products %}
               {{ macros.render_product_form(subform, loop.index0) }}
           {% endfor %}
-      </p>
-
-      <a id="add" href="#">Add Product</a>
-
+      </div>
       {{ form.submit(class_="btn btn-black") }}
-
-  </form>
+    </form>
 
   {% if form.errors %}
       {{ form.errors }}

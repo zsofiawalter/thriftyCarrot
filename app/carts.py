@@ -59,6 +59,7 @@ def cartInProgress(cart_name):
     for item in cartList:
         searchResult = ProductModel.search_by_name(item.product_name)
         searchResults.append(searchResult)
+    cartName = cartList.name
     cartLength = len(cartList)
 
     return render_template('cartInProgress.html',

@@ -10,25 +10,32 @@
     <h3 align="center">
         {{ cartList[i].product_name }}
     </h3>
-    <table class='table table-hover table-bordered container'>
+    <table class='table table-hover container'>
         <thead class="thead-dark">
         <tr>
             <th scope="col">Product Name</th>
             <th scope="col">Price</th>
             <th scope="col">Category</th>
             <th scope="col">Store</th>
+            <th scope="col"></th>
         </tr>
         </thead>
-        <tbody>
         {% for product in searchResults[i] %}
-            <tr>
-            <td>{{product.name}}</td>
-            <td>{{product.price}}</td>
-            <td>{{product.category}}</td>
-            <td>{{product.store}}</td>
-            </tr>
+        <form method="POST">
+            <tbody>
+                <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.store}}</td>
+                <div class="cart-action">
+                    <td><input  type="image" src=https://cdn-icons-png.flaticon.com/512/263/263142.png title="add to cart" alt="cart" height="24px"></td>
+                    <input type="hidden" name="code" value="{{ product.id }}"/>
+                </div> 
+                </tr>
+            </tbody>
+        </form>
         {% endfor %}
-        </tbody>
     </table>
 {% endfor %}
 
