@@ -86,6 +86,10 @@ body {
     list-style: none;
 }
 
+.is-hidden {
+    display: none;
+}
+
 select{
     overflow:auto;
     min-width: 480px;
