@@ -1,11 +1,64 @@
 {% extends "base.html" %}
 
+{% block scripts %}
+  <script>
+    $(document).ready(function () {
+      $('#data').DataTable();
+    });
+  </script>
+{% endblock %}
+
 {% block content %}
 
 <h2 align="center">
     {{ cart_name }}
 </h2>
 
+
+{% for i in range(cartLength)%}
+    <h3>{{ cartList[i].product_name }}</h3>
+    <table id="data" class="table table-striped">
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Store</th>
+            </tr>
+        </thead>
+        <tbody>
+          {% for product in searchResults[i] %}
+            <tr>
+                <td>{{product.name}}</td>
+                <td>{{product.price}}</td>
+                <td>{{product.category}}</td>
+                <td>{{product.store}}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endfor %}
+
+{% endblock content %}
+
+<!-- 
+METHOD 2
+<h3>{{ cartList[i].product_name }}</h3>
+<select name="{{ cartList[i].product_name }}" class="Input selectpicker" size="{{ searchResults[i]|length }}" multiple  align="center">
+    {% for product in searchResults[i] %}
+    <option value="{{ product.id }}">
+    <table>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.store}}</td>
+    </table>
+    </option>
+    {% endfor %}
+</select> -->
+
+<!-- 
+METHOD 1
 {% for i in range(cartLength)%}
     <h3 align="center">
         {{ cartList[i].product_name }}
@@ -37,6 +90,4 @@
         </form>
         {% endfor %}
     </table>
-{% endfor %}
-
-{% endblock content %}
+{% endfor %} -->
