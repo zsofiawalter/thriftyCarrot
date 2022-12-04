@@ -90,6 +90,21 @@ class CartContentsModel:
         self.quantity = quantity
 
     @staticmethod
+    def insert(uid, pid, quantity=1):
+        try:
+            app.db.execute("""
+INSERT INTO CartContents(uid, pid, quantity)
+VALUES(:uid, :pid, :quantity)
+""",
+                                uid=uid,
+                                pid=pid,
+                                quantity=quantity)
+        except Exception as e:
+            # product may already be in cart
+            print(str(e))
+            return None
+
+    @staticmethod
     def clearCartContents(uid):
         app.db.execute("""
 DELETE FROM CartContents

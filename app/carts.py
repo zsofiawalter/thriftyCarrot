@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for
+from flask import render_template, redirect, url_for, request
 from flask_login import current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, Form
@@ -14,12 +14,12 @@ bp = Blueprint('carts', __name__)
 
 # dynamic form adapted from: https://www.rmedgar.com/blog/dynamic-fields-flask-wtf/
 
-class newCartProducts(Form):
+class newCartProductsForm(Form):
     product = StringField('Product', validators=[DataRequired()])
 
 class newCartForm(FlaskForm):
     cart_name = StringField('Carrot Cart Name', validators=[DataRequired()])
-    products = FieldList(FormField(newCartProducts), min_entries=1, max_entries=50)
+    products = FieldList(FormField(newCartProductsForm), min_entries=1, max_entries=50)
     submit = SubmitField('Next')
 
 @bp.route('/newcart', methods=['GET', 'POST'])
@@ -32,7 +32,7 @@ def newcart():
     CartContentsModel.clearCartContents(uid)
 
     form = newCartForm()
-    template_form = newCartProducts(prefix='products-_-')
+    template_form = newCartProductsForm(prefix='products-_-')
 
     if form.validate_on_submit():
         cart_name = form.cart_name.data
@@ -60,6 +60,34 @@ def cartInProgress(cart_name):
         searchResult = ProductModel.search_by_name(item.product_name)
         searchResults.append(searchResult)
     cartLength = len(cartList)
+
+    if request.method == 'POST':
+        pid = request.form.get('id')
+        uid = current_user.id
+        CartContentsModel.insert(uid, pid)
+
+    return render_template('cartInProgress.html',
+                            cart_name = cart_name,
+                            cartLength = cartLength,
+                            cartList = cartList,
+                            searchResults = searchResults)
+
+@bp.route('/Complete<cart_name>', methods=['GET', 'POST'])
+@login_required
+def cartPurchase(cart_name):
+    # get items cart list by id
+    uid = current_user.id
+    cartList = CartListModel.get(uid)
+    searchResults = []
+    for item in cartList:
+        searchResult = ProductModel.search_by_name(item.product_name)
+        searchResults.append(searchResult)
+    cartLength = len(cartList)
+
+    if request.method == 'POST':
+        pid = request.form.get('id')
+        uid = current_user.id
+        CartContentsModel.insert(uid, pid)
 
     return render_template('cartInProgress.html',
                             cart_name = cart_name,
