@@ -7,31 +7,41 @@
 
 <h1>Browse Products</h1>
 
-<form action="" method="post" novalidate id="nameform">
-  {{ nameform.hidden_tag() }}
+<form action="" method="post" novalidate id="featureform">
+  {{ featureform.hidden_tag() }}
   <p>
-    {{ nameform.name.label }}<br/>
-    {{ nameform.name(size=32) }}<br/>
-    {% for error in nameform.name.errors %}
+    {{ featureform.name.label }}<br/>
+    {{ featureform.name(size=32) }}<br/>
+    {% for error in featureform.name.errors %}
     <span style="color: red;">[{{ error }}]</span>
     {% endfor %}<br/>
-    {{ nameform.minprice.label }}<br/>
-    {{ nameform.minprice(size=32) }}<br/>
-    {% for error in nameform.minprice.errors %}
+    {{ featureform.minprice.label }}<br/>
+    {{ featureform.minprice(size=32) }}<br/>
+    {% for error in featureform.minprice.errors %}
     <span style="color: red;">[{{ error }}]</span>
     {% endfor %}<br/>
-    {{ nameform.maxprice.label }}<br/>
-    {{ nameform.maxprice(size=32) }}<br/>
-    {% for error in nameform.maxprice.errors %}
+    {{ featureform.maxprice.label }}<br/>
+    {{ featureform.maxprice(size=32) }}<br/>
+    {% for error in featureform.maxprice.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}<br/>
+    {{ featureform.category.label }}<br/>
+    {{ featureform.category}}<br/>
+    {% for error in featureform.category.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}<br/>
+    {{ featureform.store.label }}<br/>
+    {{ featureform.store}}<br/>
+    {% for error in featureform.category.errors %}
     <span style="color: red;">[{{ error }}]</span>
     {% endfor %}
   </p>
-  {{ nameform.submit(class_="btn btn-black") }}
+  {{ featureform.submit(class_="btn btn-black") }}
 </form>
 
   
 
-{% if nameform.validate_on_submit(): %}
+{% if featureform.validate_on_submit(): %}
 &nbsp;
 <h2>Matching Products:</h2>
 <table class='table table-hover table-bordered container'>
