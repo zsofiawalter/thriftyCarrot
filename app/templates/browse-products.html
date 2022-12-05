@@ -1,0 +1,89 @@
+<!-- view -->
+<!-- cid, pid, product_name, price, category, store -->
+
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>Browse Products</h1>
+
+<form action="" method="post" novalidate id="nameform">
+  {{ nameform.hidden_tag() }}
+  <p>
+    {{ nameform.name.label }}<br/>
+    {{ nameform.name(size=32) }}<br/>
+    {% for error in nameform.name.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}<br/>
+    {{ nameform.minprice.label }}<br/>
+    {{ nameform.minprice(size=32) }}<br/>
+    {% for error in nameform.minprice.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}<br/>
+    {{ nameform.maxprice.label }}<br/>
+    {{ nameform.maxprice(size=32) }}<br/>
+    {% for error in nameform.maxprice.errors %}
+    <span style="color: red;">[{{ error }}]</span>
+    {% endfor %}
+  </p>
+  {{ nameform.submit(class_="btn btn-black") }}
+</form>
+
+  
+
+{% if nameform.validate_on_submit(): %}
+&nbsp;
+<h2>Matching Products:</h2>
+<table class='table table-hover table-bordered container'>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Product ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Store</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in products%}
+      <tr>
+        <th scope="row">{{product.id}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.store}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+&nbsp;
+<h2>All Products:</h2>
+<table class='table table-hover table-bordered container'>
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Product ID</th>
+      <th scope="col">Product Name</th>
+      <th scope="col">Price</th>
+      <th scope="col">Category</th>
+      <th scope="col">Store</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for product in allproducts%}
+      <tr>
+        <th scope="row">{{product.id}}</th>
+        <td>{{product.name}}</td>
+        <td>{{product.price}}</td>
+        <td>{{product.category}}</td>
+        <td>{{product.store}}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+{% endif %}
+
+
+
+{% endblock %}

@@ -22,6 +22,19 @@ WHERE id = :id
         return ProductModel(*(rows[0])) if rows is not None else None
 
     @staticmethod
+    def get_by_feature(name='', minprice=0, maxprice=float('inf')):
+        rows = app.db.execute('''
+SELECT id, name, price, category, store, last_update
+FROM Products
+WHERE name LIKE :name and price >= :minprice and price <= :maxprice
+
+''',
+                                name='%'+name+'%',
+                                minprice=minprice,
+                                maxprice=maxprice)
+        return [ProductModel(*row) for row in rows]
+
+    @staticmethod
     def get_all(since=datetime.datetime(2022, 10, 1, 0, 0, 0)):
         rows = app.db.execute('''
 SELECT id, name, price, category, store, last_update
