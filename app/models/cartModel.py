@@ -82,12 +82,22 @@ WHERE CartLists.uid = :uid
 
 
 # __uid__, __pid__, quantity
-# exact product list user will buy
+# exact pids user will buy
 class CartContentsModel:
     def __init__(self, uid, pid, quantity):
         self.uid = uid
         self.pid = pid
         self.quantity = quantity
+
+    @staticmethod
+    def get(uid):
+        rows = app.db.execute("""
+SELECT uid, pid, quantity
+FROM CartContents
+WHERE uid = :uid
+""",
+                                uid=uid)
+        return [CartContentsModel(*row) for row in rows]
 
     @staticmethod
     def insert(uid, pid, quantity=1):
@@ -111,3 +121,26 @@ DELETE FROM CartContents
 WHERE CartContents.uid = :uid
 """,
                                 uid=uid)
+
+# __uid__, __pid__, name, price, category, store, quantity
+# exact products user will buy
+class CartProductsModel:
+    def __init__(self, uid, pid, name, price, category, store, quantity):
+        self.uid = uid
+        self.pid = pid
+        self.name = name
+        self.price = price
+        self.category = category
+        self.store = store
+        self.quantity = quantity
+
+    @staticmethod
+    def get(uid):
+        rows = app.db.execute("""
+SELECT C.uid, C.pid, P.name, P.price, P.category, P.store, C.quantity
+FROM CartContents AS C, Products AS P
+WHERE C.uid = :uid
+AND C.pid = P.pid
+""",
+                                uid=uid)
+        return [CartProductsModel(*row) for row in rows]

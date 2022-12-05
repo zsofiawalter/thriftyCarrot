@@ -43,17 +43,18 @@ def newcart():
             # add product to cart list
             CartListModel.addToCartList(uid, product['product'])
             print(product)
-        return redirect(url_for('carts.cartInProgress', cart_name=cart_name))
+        return redirect(url_for('carts.cartInProgress'))
 
     return render_template('newCart.html',
                             form = form,
                             _template = template_form)
 
-@bp.route('/<cart_name>', methods=['GET', 'POST'])
+@bp.route('/cartinprogress', methods=['GET', 'POST'])
 @login_required
-def cartInProgress(cart_name):
+def cartInProgress():
     # get items cart list by id
     uid = current_user.id
+    cart = CartModel.get(uid)
     cartList = CartListModel.get(uid)
     searchResults = []
     for item in cartList:
@@ -67,30 +68,23 @@ def cartInProgress(cart_name):
         CartContentsModel.insert(uid, pid)
 
     return render_template('cartInProgress.html',
-                            cart_name = cart_name,
+                            cart_name = cart.cart_name,
                             cartLength = cartLength,
                             cartList = cartList,
                             searchResults = searchResults)
 
-@bp.route('/Complete<cart_name>', methods=['GET', 'POST'])
+@bp.route('/completecart', methods=['GET', 'POST'])
 @login_required
-def cartPurchase(cart_name):
+def cartPurchase():
     # get items cart list by id
     uid = current_user.id
-    cartList = CartListModel.get(uid)
-    searchResults = []
-    for item in cartList:
-        searchResult = ProductModel.search_by_name(item.product_name)
-        searchResults.append(searchResult)
-    cartLength = len(cartList)
+    cart = CartModel.get(uid)
+    cartContents = CartContentsModel.get(uid)
 
     if request.method == 'POST':
-        pid = request.form.get('id')
+        product = request.form.get('product')
         uid = current_user.id
-        CartContentsModel.insert(uid, pid)
 
-    return render_template('cartInProgress.html',
-                            cart_name = cart_name,
-                            cartLength = cartLength,
-                            cartList = cartList,
-                            searchResults = searchResults)
+    return render_template('completeCart.html',
+                            cart_name = cart.cart_name,
+                            cartContents = cartContents)

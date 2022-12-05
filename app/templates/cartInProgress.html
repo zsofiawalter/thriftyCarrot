@@ -60,60 +60,9 @@
             </tbody>
         </form>
         {% endfor %}
-      </table>
+    </table>
 {% endfor %}
 
-<a href="{{ url_for('carts.cartPurchase', cart_name=cart_name) }}" type="button" class="btn">Next</a>
+<a href="{{ url_for('carts.cartPurchase') }}" type="button" class="btn">Next</a>
 
 {% endblock content %}
-
-<!-- 
-METHOD 2
-<h3>{{ cartList[i].product_name }}</h3>
-<select name="{{ cartList[i].product_name }}" class="Input selectpicker" size="{{ searchResults[i]|length }}" multiple  align="center">
-    {% for product in searchResults[i] %}
-    <option value="{{ product.id }}">
-    <table>
-        <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
-        <td>{{product.category}}</td>
-        <td>{{product.store}}</td>
-    </table>
-    </option>
-    {% endfor %}
-</select> -->
-
-<!-- 
-METHOD 1
-{% for i in range(cartLength)%}
-    <h3 align="center">
-        {{ cartList[i].product_name }}
-    </h3>
-    <table class='table table-hover container'>
-        <thead class="thead-dark">
-        <tr>
-            <th scope="col">Product Name</th>
-            <th scope="col">Price</th>
-            <th scope="col">Category</th>
-            <th scope="col">Store</th>
-            <th scope="col"></th>
-        </tr>
-        </thead>
-        {% for product in searchResults[i] %}
-        <form method="POST">
-            <tbody>
-                <tr>
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.store}}</td>
-                <div class="cart-action">
-                    <td><input  type="image" src=https://cdn-icons-png.flaticon.com/512/263/263142.png title="add to cart" alt="cart" height="24px"></td>
-                    <input type="hidden" name="code" value="{{ product.id }}"/>
-                </div> 
-                </tr>
-            </tbody>
-        </form>
-        {% endfor %}
-    </table>
-{% endfor %} -->
