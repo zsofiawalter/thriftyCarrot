@@ -77,3 +77,20 @@ WHERE RecentThree.cid = OldCartContents.cid
 ''',
                               uid=uid)        
         return [OldCartContentModel(*row) for row in rows]
+
+    @staticmethod
+    def insert(cid, pid, product_name, price, category, store):
+        try:
+            app.db.execute("""
+INSERT INTO OldCartContents(cid, pid, product_name, price, category, store)
+VALUES(:cid, :pid, :product_name, :price, :category, :store)
+""",
+                                cid=cid,
+                                pid=pid, 
+                                product_name=product_name, 
+                                price=price, 
+                                category=category, 
+                                store=store)
+        except Exception as e:
+            print(str(e))
+            return None
