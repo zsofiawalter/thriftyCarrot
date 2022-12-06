@@ -20,9 +20,7 @@ class userEntry(FlaskForm):
 @bp.route('/home', methods=['GET', 'POST'])
 @login_required
 def home():
-    #TODO: new cart button
     #TODO: *expansion* view cart in progress
-    #TODO: cart history instead of products/purchase history
     products = ProductModel.get_all(datetime.datetime(2022, 10, 1, 0, 0, 0))
     purchases = OldCartModel.get_all_by_uid_since(
         current_user.id, datetime.datetime(1980, 9, 14, 0, 0, 0))
