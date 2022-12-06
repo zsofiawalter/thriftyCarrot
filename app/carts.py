@@ -8,6 +8,8 @@ from datetime import datetime
 
 from .models.cartModel import CartModel, CartListModel, CartContentsModel
 from .models.productModel import ProductModel
+from .models.oldCartContentModel import OldCartContentModel
+from .models.oldCartModel import OldCartModel
 
 from flask import Blueprint
 bp = Blueprint('carts', __name__)
@@ -63,12 +65,12 @@ def cartInProgress():
     cartLength = len(cartList)
 
     if request.method == 'POST':
-        pid = request.form.get('id')
+        pid = request.form.get('pid')
         uid = current_user.id
         CartContentsModel.insert(uid, pid)
 
     return render_template('cartInProgress.html',
-                            cart_name = cart.cart_name,
+                            cartName = cart[0].cart_name,
                             cartLength = cartLength,
                             cartList = cartList,
                             searchResults = searchResults)
@@ -78,13 +80,29 @@ def cartInProgress():
 def cartPurchase():
     # get items cart list by id
     uid = current_user.id
-    cart = CartModel.get(uid)
+    cart = CartModel.get(uid)[0]
     cartContents = CartContentsModel.get(uid)
-
+    products = []
+    
+    for c in cartContents:
+        products.append(ProductModel.get(c.pid))
+    
     if request.method == 'POST':
-        product = request.form.get('product')
         uid = current_user.id
+        pids = request.form.getlist('pid')
+
+        cid = OldCartModel.insert(uid, cart.cart_name)
+
+        for pid in pids:
+            product = ProductModel.get(pid)
+            OldCartContentModel.insert(cid, pid, product.name, product.price, product.category, product.store)
+        return redirect(url_for('home.home'))
+    
+    print(products)
+    print(cartContents)
 
     return render_template('completeCart.html',
-                            cart_name = cart.cart_name,
-                            cartContents = cartContents)
+                            cartName = cart.cart_name,
+                            cartLength = len(cartContents),
+                            cartContents = cartContents,
+                            products = products)

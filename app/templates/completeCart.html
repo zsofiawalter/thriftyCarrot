@@ -15,7 +15,7 @@
 {% block content %}
 
 <h2 align="center">
-    {{ cart_name }}
+    {{ cartName }}
 </h2>
 
 <form method="POST">
@@ -26,21 +26,28 @@
             <th>Price</th>
             <th>Category</th>
             <th>Store</th>
-            <th>Quantity</th>
+            <th>Qt.</th>
             <th></th>
         </tr>
     </thead>
-    {% for product in cartContents[i] %}
+    {% for i in range(cartLength) %}
         <tbody>
             <tr>
-                <td>{{product.name}}</td>
-                <td>{{product.price}}</td>
-                <td>{{product.category}}</td>
-                <td>{{product.store}}</td>
-                <td>{{product.quantity}}</td>
+                <td>{{products[i].name}}</td>
+                <td>{{products[i].price}}</td>
+                <td>{{products[i].category}}</td>
+                <td>{{products[i].store}}</td>
+                <td>{{cartContents[i].quantity}}</td>
                 <td>
-                    <input class="form-check-input" type="checkbox" name="check" id="inlineCheckbox1" value="{{product}}">
-                    <label class="form-check-label" for="inlineCheckbox1">&nbsp;</label>
+                    <div>
+                        <input class="form-check-input" type="checkbox" name="pid" id="inlineCheckbox1" value="{{ products[i].id }}">
+                        <label class="form-check-label" for="inlineCheckbox1">&nbsp;</label>
+                        <!-- <input type="hidden" name="pid" value="{{ products[i].id }}">
+                        <input type="hidden" name="product_name" value="{{ products[i].name }}">
+                        <input type="hidden" name="price" value="{{ products[i].price }}">
+                        <input type="hidden" name="category" value="{{ products[i].category }}">
+                        <input type="hidden" name="store" value="{{ products[i].store }}"> -->
+                    </div>
                 </td>
             </tr>
         </tbody>

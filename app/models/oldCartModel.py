@@ -59,13 +59,15 @@ ORDER BY time_created DESC
     @staticmethod
     def insert(uid, cart_name):
         try:
-            app.db.execute("""
-INSERT INTO CartContents(uid, cart_name)
+            rows = app.db.execute("""
+INSERT INTO OldCarts(uid, cart_name)
 VALUES(:uid, :cart_name)
-RETURN cid
+RETURNING cid
 """,
                                 uid=uid,
                                 cart_name=cart_name)
+            cid = rows[0][0]
+            return cid
         except Exception as e:
             # product may already be in cart
             print(str(e))
