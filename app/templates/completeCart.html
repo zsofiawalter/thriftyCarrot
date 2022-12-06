@@ -9,6 +9,19 @@
     $(document).ready(function () {
       $('#data').DataTable();
     });
+
+    items = document.getElementsByClassName("qt-input")
+    for(i = 0; i < items.length; i++){
+        items[i].addEventListener('input', updateValue);
+    }
+
+    function updateValue(e) {
+        quantity = e.target
+        index = quantity.getAttribute('id').split('-')[1]
+        checkbox = document.getElementById("inlineCheckbox-" + index)
+        pid = checkbox.getAttribute('value').split('-')[0]
+        checkbox.setAttribute('value', pid + '-' + quantity)
+    }
   </script>
 {% endblock %}
 
@@ -37,18 +50,16 @@
                 <td>{{products[i].price}}</td>
                 <td>{{products[i].category}}</td>
                 <td>{{products[i].store}}</td>
-                <td>{{cartContents[i].quantity}}</td>
-                <td>
-                    <div>
-                        <input class="form-check-input" type="checkbox" name="pid" id="inlineCheckbox1" value="{{ products[i].id }}">
-                        <label class="form-check-label" for="inlineCheckbox1">&nbsp;</label>
-                        <!-- <input type="hidden" name="pid" value="{{ products[i].id }}">
-                        <input type="hidden" name="product_name" value="{{ products[i].name }}">
-                        <input type="hidden" name="price" value="{{ products[i].price }}">
-                        <input type="hidden" name="category" value="{{ products[i].category }}">
-                        <input type="hidden" name="store" value="{{ products[i].store }}"> -->
-                    </div>
-                </td>
+                <div class="cart-action">
+                    <td>
+                        <input class="qt-input" type="number" id="qt-{{ loop.index }}" value="1" min="0" max="100">
+                    </td>
+                    <td>
+                        <div>
+                            <input class="cart-check-input" type="checkbox" name="product_info" id="inlineCheckbox-{{ loop.index }}" value="{{ products[i].id }}-1">
+                        </div>
+                    </td>
+                </div>
             </tr>
         </tbody>
     {% endfor %}

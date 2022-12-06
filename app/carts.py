@@ -65,9 +65,10 @@ def cartInProgress():
     cartLength = len(cartList)
 
     if request.method == 'POST':
-        pid = request.form.get('pid')
-        uid = current_user.id
-        CartContentsModel.insert(uid, pid)
+        pids = request.form.getlist('product_info')
+        for pid in pids:
+            CartContentsModel.insert(uid, pid)
+        return redirect(url_for('carts.cartPurchase'))
 
     return render_template('cartInProgress.html',
                             cartName = cart[0].cart_name,
@@ -78,25 +79,23 @@ def cartInProgress():
 @bp.route('/completecart', methods=['GET', 'POST'])
 @login_required
 def cartPurchase():
-    # get items cart list by id
     uid = current_user.id
     cart = CartModel.get(uid)[0]
     cartContents = CartContentsModel.get(uid)
     products = []
-    
     for c in cartContents:
         products.append(ProductModel.get(c.pid))
     
     if request.method == 'POST':
-        uid = current_user.id
-        pids = request.form.getlist('pid')
-
-        cid = OldCartModel.insert(uid, cart.cart_name)
-
-        for pid in pids:
-            product = ProductModel.get(pid)
-            OldCartContentModel.insert(cid, pid, product.name, product.price, product.category, product.store)
-        return redirect(url_for('home.home'))
+        if request.form.get('submit-button')=="Submit":
+            pids = request.form.getlist('product_info')
+            cid = OldCartModel.insert(uid, cart.cart_name)
+            # only add products checked off to database
+            for pid in pids:
+                p, q = pid.split('-')
+                product = ProductModel.get(p)
+                OldCartContentModel.insert(cid, p, product.name, product.price, product.category, product.store)
+            return redirect(url_for('home.home'))
     
     print(products)
     print(cartContents)
