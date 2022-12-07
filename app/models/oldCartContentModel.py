@@ -33,6 +33,22 @@ GROUP BY category
         return [OldCartContentModel(*row) for row in rows]
 
     @staticmethod
+    def get_last_cart_prices(uid):
+        rows = app.db.execute('''
+SELECT COUNT(OldCarts.cid), COUNT(OldCartContents.pid), MIN(OldCartContents.product_name), SUM(OldCartContents.price), COUNT(OldCartContents.category), COUNT(OldCartContents.store)
+FROM OldCartContents, OldCarts
+WHERE OldCarts.uid = :uid
+AND OldCartContents.cid = (SELECT cid
+FROM OldCarts
+WHERE uid = :uid
+ORDER BY time_created DESC
+limit 1)
+GROUP BY pid
+ 
+''',
+                              uid=uid)
+        return [OldCartContentModel(*row) for row in rows]
+    @staticmethod
     def get_most_recent_by_uid(uid):
         rows = app.db.execute('''
 SELECT OldCarts.cid, OldCartContents.pid, OldCartContents.product_name, OldCartContents.price, OldCartContents.category, OldCartContents.store

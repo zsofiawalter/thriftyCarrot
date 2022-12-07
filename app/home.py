@@ -39,30 +39,31 @@ def home():
         cart.time_created = cart.time_created.strftime("%b %d, %Y")
     cartContent = OldCartContentModel.get_content_of_recent_three_by_uid(current_user.id)
     purchase_category = OldCartContentModel.get_count_by_category(current_user.id)
-    # labels = []
-    # values = []
+    last_cart_prices = OldCartContentModel.get_last_cart_prices(current_user.id)
     data = []
     data_length = 0 
+    last_cart = []
+    last_cart_length = 0
+    for product in last_cart_prices:
+        if last_cart_length == 0:
+            last_cart.append(["Product name","Total price"])
+        last_cart_length+=1
+        last_cart.append([product.product_name, float(product.price)])
     for purchase in purchase_category:
-        # labels.append(purchase.category)
-        # values.append(purchase.pid)
         if data_length == 0:
             data.append(["Category","Count"])
         data_length+=1
         data.append([purchase.category,purchase.pid])
-    print(data)
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
         if(content.review): content.like_dislike = content.review[0].like_dislike
-    # count = len(labels)
     count = data_length
-    colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA"]
     return render_template('home.html',
             current_user=current_user,
             avail_products=products,
             purchase_history=purchases,
-            # set=zip(values, labels, colors),
             category_data = data,
+            last_cart = last_cart,
             count = count,
             carts=carts,
             cartContent=cartContent)
