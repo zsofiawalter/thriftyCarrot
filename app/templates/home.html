@@ -1,10 +1,16 @@
 {% extends "navbar.html" %}
 
+{% block scripts %}
 <script>
   $(document).ready(function () {
-    $('#data').DataTable();
+    $('table.home-table').DataTable({
+      searching: false,
+      paging: false,
+      info: false
+    });
   });
 </script>
+{% endblock %}
 
 
 {% block content %}
@@ -23,8 +29,8 @@
       <p style="display: inline;">  </p>
       <p class="font-italic" style="display:inline;">{{cart.time_created}} </p>
     </a>
-    <div class="collapse">
-        <table class='table table-hover table-bordered container'>
+    <div class="collapse content">
+        <table class="hover home-table" id="data{{ loop.index }}">
           <thead class="thead-dark">
             <tr>
               <th scope="col">Product Name</th>
