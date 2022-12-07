@@ -4,8 +4,20 @@ text-align: center;
 }
 
 h1 {
-    size: 32px;
+    font-size: 48px;
+    text-align: center;
 }
+
+h2{
+    font-size: 32px;
+    text-align: center;
+}
+
+h3{
+    font-size: 24px;
+    text-align: center;
+}
+
 
 .container {
 display: table;
@@ -40,6 +52,8 @@ body {
     background-color: #c0e9cd;
     overflow-x: hidden;
     padding-top: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -66,4 +80,23 @@ body {
     background-color: hsl(#AFF4C6);
     outline: #95cea8;
     color: #fff;
+}
+
+.productlist {
+    list-style: none;
+}
+
+.is-hidden {
+    display: none;
+}
+
+select{
+    overflow:auto;
+    min-width: 480px;
+    display: block;
+    margin: 0 auto;
+}
+
+option{
+    text-align: center;
 }
