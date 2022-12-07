@@ -33,7 +33,7 @@ def preferences():
                             recentRotten=recentRotten)
 
 class reviewEntry(FlaskForm):
-    like_dislike = BooleanField('Give a fresh carrot?')
+    like_dislike = BooleanField('Give a fresh carrot? (Leave unchecked for rotten carrot)')
     submit = SubmitField('AddReview')
 
 @bp.route('/newPreference', methods=['GET', 'POST'])
