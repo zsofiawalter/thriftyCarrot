@@ -10,7 +10,7 @@
           </a>
         </ul>
       </div>
-      <div class="title-nav mx-auto order-0">
+      <div class="title-nav mx-auto order-0 font-weight-bold">
         <h1 style="color:#010101">Thrifty Carrot</h1>
       </div>
       <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
@@ -39,6 +39,12 @@
     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.25/js/dataTables.bootstrap5.js"></script>
+    <script>
+      $(document).ready(function () {
+        $('#data').DataTable();
+      });
+    </script>
+    
     {% block scripts %}{% endblock %}
 
 {% endblock body %}

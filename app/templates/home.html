@@ -1,89 +1,54 @@
 {% extends "navbar.html" %}
 
+<script>
+  $(document).ready(function () {
+    $('#data').DataTable();
+  });
+</script>
+
+
 {% block content %}
-<br>
-
-<h2>Welcome Back {{current_user.firstname}} :)</h2>
-
-<style>
-  .button {
-    background-color: #AFF4C6;
-    border: none;
-    color: white;
-    padding: 20px 34px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 6px 2px;
-    cursor: pointer;
-  }
-</style>
-</head>
-<body>
-<a href="{{ url_for('carts.newcart') }}" class="button">Start new cart!</a>
-</body>
-
-
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 18px;
-}
-
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-</style>
-</head>
-<body>
-  
-<br><br>
-<h2>Your Three Recent CarrotCarts:</h2>
-
-{% for cart in carts%}
-<button type="button" class="collapsible">Open {{cart.cart_name}} -- Created on {{cart.time_created}}</button>
-<div class="content">
-  <p><table class='table table-hover table-bordered container'>
-    <thead class="thead-dark">
-      <tr>
-        <th scope="col">Product Name</th>
-        <th scope="col">Price</th>
-        <th scope="col">Category</th>
-        <th scope="col">Store</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for purchase in cartContent%}
-        {% if cart.cid == purchase.cid: %}
-          <tr>
-            <td>{{purchase.product_name}}</td>
-            <td>{{purchase.price}}</td>
-            <td>{{purchase.category}}</td>
-            <td>{{purchase.store}}</td>
-          </tr>
-        {% endif %}
-      {% endfor %}
-    </tbody>
-  </table></p>
+<div class="home-header">
+  <h2 class="font-italic">
+    Welcome Back {{current_user.firstname}}!
+  </h2>
+  <a href="{{ url_for('carts.newcart') }}" class="newcart-btn"> Start new cart! </a>
 </div>
-{% endfor %}
+
+<div class="cart-history">
+  <h2 style="padding: 16px">Your three most recent CarrotCarts:</h2>
+  {% for cart in carts%}
+    <a data-toggle="collapse" class="collapsible"> 
+      <h3 class="fw-semibold" style="display:inline; font-size:24px;">{{cart.cart_name}}</h3>
+      <p style="display: inline;">  </p>
+      <p class="font-italic" style="display:inline;">{{cart.time_created}} </p>
+    </a>
+    <div class="collapse">
+        <table class='table table-hover table-bordered container'>
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Product Name</th>
+              <th scope="col">Price</th>
+              <th scope="col">Category</th>
+              <th scope="col">Store</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for purchase in cartContent%}
+              {% if cart.cid == purchase.cid: %}
+                <tr>
+                  <td>{{purchase.product_name}}</td>
+                  <td>{{purchase.price}}</td>
+                  <td>{{purchase.category}}</td>
+                  <td>{{purchase.store}}</td>
+                </tr>
+              {% endif %}
+            {% endfor %}
+          </tbody>
+        </table>
+    </div>
+  {% endfor %}
+</div>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
@@ -102,27 +67,5 @@ for (i = 0; i < coll.length; i++) {
 }
 </script>
 </body>
-
-<br><br>
-<h2>Products for Sale:</h2>
-<br>
-<table class='table table-hover table-bordered container'>
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Product ID</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Price</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for product in avail_products%}
-      <tr>
-        <th scope="row">{{product.id}}</th>
-        <td>{{product.name}}</td>
-        <td>{{product.price}}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
 
 {% endblock %}

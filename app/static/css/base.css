@@ -1,6 +1,7 @@
 :root {
-    --thriftyGreen: #9EE69D;
-    --darkThriftyGreen: #95cea8;
+    --thriftyGreen: #A0E8A2;
+    --lightThriftyGreen: #B4EBB3;
+    --darkThriftyGreen: #7FB076;
     --softWhite: #FAFAFA;
 }
 
@@ -24,12 +25,8 @@ p{
 }
 
 .container {
-display: table;
-width: 75%;
-}
-
-body {
-    font-family: "Lato", sans-serif;
+    display: table;
+    width: 75%;
 }
 
 .main-head {
@@ -73,6 +70,8 @@ body {
     color: var(--softWhite);
 }
 
+/* LOGIN PAGE */
+
 .center{
     width: 560px;
     margin: auto;
@@ -81,7 +80,7 @@ body {
 
 .login-logo-bg {
     background-color: var(--softWhite);
-    border-radius: 50%;
+    border-radius: 5px;
     height: 360px;
     width: 360px;
     position: absolute;
@@ -102,7 +101,7 @@ body {
 .login-box{
     background-color: var(--softWhite);
     border-style: solid;
-    border-radius: 5%;
+    border-radius: 5px;
     border-color: var(--softWhite);
     border-width: 24px;
     width: 480px;
@@ -111,6 +110,64 @@ body {
     left: 40px;
     z-index: 2;
 }
+
+/* HOME PAGE */
+.home-header {
+    position: relative;
+    margin: auto;
+    height: 120px;
+    padding: 16px;
+}
+
+.newcart-btn {
+    position: absolute;
+    left: 12.5%;
+    background-color: var(--thriftyGreen);
+    border-color: var(--thriftyGreen);
+    border-radius: 5px;
+    color: black;
+    font-size: 24px !important;
+    font-weight: bolder !important;
+    height: 48px;
+    padding: 8px 12px 8px 12px;
+}
+
+.newcart-btn:hover {
+    background-color: var(--darkThriftyGreen);
+    color: black;
+    text-decoration: none;
+}
+
+.cart-history {
+    position: relative;
+    margin: auto;
+}
+
+.collapsible {
+    background-color: var(--thriftyGreen);
+    cursor: pointer;
+    font-size: 16px;
+    left: 16px;
+    display: table;
+    margin: 8px auto 8px auto;
+    width: 75%;
+    border: solid;
+    border-color: var(--thriftyGreen);
+    border-radius: 5px;
+    border-width: 17px;
+  }
+  
+  .active, .collapsible:hover {
+    border-color: var(--darkThriftyGreen);
+    background-color: var(--darkThriftyGreen);
+  }
+  
+  .content {
+    padding: 0 18px;
+    display: none;
+    overflow: hidden;
+    background-color: var(--softWhite);
+  }
 
 .productlist {
     list-style: none;
