@@ -85,11 +85,11 @@
                       {% else %}
                       Rotten Carrot
                       {% endif %} 
-                      <a href="{{ url_for('preferences.update', pid=pid)}}" class="button">Change your carrot</a>
+                      <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Change your carrot</a>
                 </td>
               {% else %}
-                <td>{{purchase.pid}}
-                  <a href="{{ url_for('preferences.update', pid=pid)}}" class="button">Give a carrot</a>
+                <td>
+                  <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Give a carrot</a>
                 </td>
             {% endif %}
           </tr>

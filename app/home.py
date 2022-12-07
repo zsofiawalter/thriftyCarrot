@@ -39,7 +39,7 @@ def home():
 
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
-        content.like_dislike = content.review[0].like_dislike
+        if(content.review): content.like_dislike = content.review[0].like_dislike
 
     return render_template('home.html',
             current_user=current_user,

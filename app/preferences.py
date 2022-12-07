@@ -42,10 +42,11 @@ def update():
     form = reviewEntry()
     uid = current_user.id
     pid = request.args.get('pid', None)
+    returnUrl = request.args.get('returnUrl', "home")
     if form.validate_on_submit():
         if(form.like_dislike.data == True): l_d = True
         if(form.like_dislike.data == False): l_d = False
         if PreferenceModel.insert(uid, pid, l_d):
             flash('You have updated your preferences.')
-        return redirect(url_for('home.home'))
+        return redirect(returnUrl)
     return render_template('newPreference.html',form=form)
