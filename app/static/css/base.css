@@ -1,6 +1,7 @@
-section {
-color: #fff;
-text-align: center;
+:root {
+    --thriftyGreen: #AFF4C6;
+    --darkThriftyGreen: #95cea8;
+    --softWhite: #FAFAFA;
 }
 
 h1 {
@@ -8,34 +9,23 @@ h1 {
     text-align: center;
 }
 
-h2{
+h2 {
     font-size: 32px;
     text-align: center;
 }
 
-h3{
+h3 {
     font-size: 24px;
     text-align: center;
 }
 
+p{
+    font-size: 16px;
+}
 
 .container {
 display: table;
 width: 75%;
-}
-
-.left-half {
-background-color: #ff9e2c;
-position: absolute;
-left: 0px;
-width: 50%;
-}
-
-.right-half {
-background-color: #b6701e;
-position: absolute;
-right: 0px;
-width: 50%;
 }
 
 body {
@@ -44,12 +34,12 @@ body {
 
 .main-head {
     height: 150px;
-    background: #FFF;
+    background: var(--softWhite);
 }
 
 .navbar {
     height: 100%;
-    background-color: #c0e9cd;
+    background-color: var(--thriftyGreen);
     overflow-x: hidden;
     padding-top: 20px;
     padding-left: 20px;
@@ -62,6 +52,7 @@ body {
 .title-nav {
     white-space: nowrap;
 }
+
 .main {
     padding: 0px 10px;
 }
@@ -77,9 +68,39 @@ body {
 }
 
 .btn-login {
-    background-color: hsl(#AFF4C6);
-    outline: #95cea8;
-    color: #fff;
+    background-color: var(--thriftyGreen);
+    outline: var(--darkThriftyGreen);
+    color: var(--softWhite);
+}
+
+.center{
+    position: relative;
+    margin: 0 auto;
+}
+
+.login-logo-bg {
+    border-radius: 50%;
+    height: 320px;
+    width: 320px;
+    position: relative;
+    background-color: var(--softWhite);
+}
+
+.login-logo-carrot {
+    display: block;
+    height: 240px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: (-50%, -50%);
+}
+
+.login-box{
+    background-color: var(--softWhite);
+    border-style: solid;
+    border-width: 24px;
+    border-radius: 5%;
+    border-color: var(--softWhite);
 }
 
 .productlist {
@@ -90,13 +111,16 @@ body {
     display: none;
 }
 
-select{
-    overflow:auto;
-    min-width: 480px;
-    display: block;
-    margin: 0 auto;
-}
-
-option{
-    text-align: center;
-}
+.left-half {
+    background-color: #ff9e2c;
+    position: absolute;
+    left: 0px;
+    width: 50%;
+    }
+    
+    .right-half {
+    background-color: #b6701e;
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    }
