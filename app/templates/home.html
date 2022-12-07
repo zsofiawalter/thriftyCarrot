@@ -18,7 +18,7 @@
   <h2 class="font-italic">
     Welcome Back {{current_user.firstname}}!
   </h2>
-  <a href="{{ url_for('carts.newcart') }}" class="newcart-btn"> Start new cart! </a>
+  <a href="{{ url_for('carts.newcart') }}" class="thrifty-btn"> Start new cart! </a>
 </div>
 
 <div class="cart-history">
@@ -30,35 +30,34 @@
       <p class="font-italic" style="display:inline;">{{cart.time_created}} </p>
     </a>
     <div class="collapse content">
-        <table class="hover home-table" id="data{{ loop.index }}">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">Product Name</th>
-              <th scope="col">Price</th>
-              <th scope="col">Category</th>
-              <th scope="col">Store</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for purchase in cartContent%}
-              {% if cart.cid == purchase.cid: %}
-                <tr>
-                  <td>{{purchase.product_name}}</td>
-                  <td>{{purchase.price}}</td>
-                  <td>{{purchase.category}}</td>
-                  <td>{{purchase.store}}</td>
-                </tr>
-              {% endif %}
-            {% endfor %}
-          </tbody>
-        </table>
+      <table class="hover home-table" id="data{{ loop.index }}">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Product Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Category</th>
+            <th scope="col">Store</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for purchase in cartContent%}
+            {% if cart.cid == purchase.cid: %}
+              <tr>
+                <td>{{purchase.product_name}}</td>
+                <td>{{purchase.price}}</td>
+                <td>{{purchase.category}}</td>
+                <td>{{purchase.store}}</td>
+              </tr>
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      </table>
     </div>
   {% endfor %}
 </div>
 
 <script>
 var coll = document.getElementsByClassName("collapsible");
-var i;
 
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {

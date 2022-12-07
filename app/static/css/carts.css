@@ -1,12 +1,4 @@
-div.cart-action input {
-    background: url(https://media.istockphoto.com/id/639201180/vector/shopping-cart-icon.jpg?s=612x612&w=0&k=20&c=AIDue0uA36lvIYf4gstcMYqcIwCK_p3_RQb0EQv9XsI=) no-repeat;
-    background-size: 32px;
-    height: 32px;
-    width: 32px;
-    cursor: pointer;
-    border: none;
-}
-
+/* NEWCART STYLING */
 .product-form {
     width: 560px;
     position: relative;
@@ -46,7 +38,7 @@ a {
 a:hover {
     text-decoration: none;
     color: var(--darkThriftyGreen);
-    font-weight: bold;
+    font-weight: 500;
 }
 
 .add {
@@ -58,4 +50,34 @@ a:hover {
 .next {
     position: absolute;
     right: 35%;
+}
+
+.product-header {
+    font-size: 24px;
+}
+
+.collapsible {
+    border-width: 8px;
+}
+
+.active {
+    background-color: var(--thriftyGreen);
+    border-color: var(--thriftyGreen);
+}
+
+.description{
+    font-style: italic;
+    text-align: center;
+    color: var(--lightThriftyGreen)
+}
+
+.submit-button{
+    position: absolute; 
+    right: 12.5%; 
+    padding:8px; 
+    margin-top:8px; 
+    margin-bottom:8px;
+    border-radius: 5px !important;
+    border-style: solid;
+    border-color: transparent;
 }

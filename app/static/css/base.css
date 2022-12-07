@@ -119,21 +119,24 @@ p{
     padding: 16px;
 }
 
-.newcart-btn {
+.thrifty-btn {
     position: absolute;
     left: 12.5%;
     background-color: var(--thriftyGreen);
     border-color: var(--thriftyGreen);
     border-radius: 5px;
+    border-style: solid;
     color: black;
-    font-size: 24px !important;
-    font-weight: bolder !important;
-    height: 48px;
-    padding: 8px 12px 8px 12px;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
 }
 
-.newcart-btn:hover {
+.thrifty-btn:hover {
     background-color: var(--darkThriftyGreen);
+    border-color: var(--darkThriftyGreen);
     color: black;
     text-decoration: none;
 }
@@ -173,7 +176,7 @@ p{
 }
 
 .home-table{
-    padding-bottom: 8px;
+    padding-bottom: 16px;
 }
 
 .productlist {
@@ -183,17 +186,3 @@ p{
 .is-hidden {
     display: none;
 }
-
-.left-half {
-    background-color: #ff9e2c;
-    position: absolute;
-    left: 0px;
-    width: 50%;
-    }
-    
-    .right-half {
-    background-color: #b6701e;
-    position: absolute;
-    right: 0px;
-    width: 50%;
-    }
