@@ -20,6 +20,17 @@ WHERE cid = :cid
 ''',
                               cid=cid)
         return OldCartContentModel(*(rows[0])) if rows else None
+    @staticmethod
+    def get_count_by_category(uid):
+        rows = app.db.execute('''
+SELECT COUNT(OldCarts.cid), COUNT(OldCartContents.pid), COUNT(OldCartContents.product_name), COUNT(OldCartContents.price), OldCartContents.category, COUNT(OldCartContents.store)
+FROM OldCartContents, OldCarts
+WHERE OldCarts.uid = :uid
+AND OldCarts.cid = OldCartContents.cid
+GROUP BY category
+''',
+                              uid=uid)
+        return [OldCartContentModel(*row) for row in rows]
 
     @staticmethod
     def get_most_recent_by_uid(uid):

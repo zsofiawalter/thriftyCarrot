@@ -24,7 +24,26 @@
 <a href="{{ url_for('carts.newcart') }}" class="button">Start new cart!</a>
 </body>
 
+<!-- <script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script> -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        
+        console.log({{category_data | safe}})
+        var data = google.visualization.arrayToDataTable({{category_data | safe}});
+
+        var options = {
+          title: 'Historical spending'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+        chart.draw(data, options);
+      }
+    </script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -53,8 +72,27 @@
 </style>
 </head>
 <body>
-  
 <br><br>
+{% if count>0 %}
+<div id="piechart" style="width: 700px; height: 300px;"></div>
+<!-- <canvas id="chart" width="300" height="200"></canvas>
+<script>
+  var pieData = [
+        {% for item, label, color in set %}
+          {
+            value: {{item}},
+            label: "{{label}}",
+            color : "{{colors}}"
+          },
+        {% endfor %}
+      ];
+  steps = 10
+  max = 10
+  var mychart = document.getElementById("chart").getContext("2d");
+  new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+</script> -->
+{% endif %}
+
 <h2>Your Three Recent CarrotCarts:</h2>
 
 {% for cart in carts%}

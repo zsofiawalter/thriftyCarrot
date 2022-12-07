@@ -2,6 +2,8 @@ from flask import render_template, redirect, url_for, flash, request
 from werkzeug.urls import url_parse
 from flask_login import login_user, logout_user, current_user, login_required
 import datetime
+import random
+random.seed(0)
 
 from .models.productModel import ProductModel
 from .models.oldCartModel import OldCartModel
@@ -36,15 +38,32 @@ def home():
     for cart in carts:
         cart.time_created = cart.time_created.strftime("%b %d, %Y")
     cartContent = OldCartContentModel.get_content_of_recent_three_by_uid(current_user.id)
-
+    purchase_category = OldCartContentModel.get_count_by_category(current_user.id)
+    # labels = []
+    # values = []
+    data = []
+    data_length = 0 
+    for purchase in purchase_category:
+        # labels.append(purchase.category)
+        # values.append(purchase.pid)
+        if data_length == 0:
+            data.append(["Category","Count"])
+        data_length+=1
+        data.append([purchase.category,purchase.pid])
+    print(data)
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
         if(content.review): content.like_dislike = content.review[0].like_dislike
-
+    # count = len(labels)
+    count = data_length
+    colors = ["#F7464A", "#46BFBD", "#FDB45C", "#FEDCBA"]
     return render_template('home.html',
             current_user=current_user,
             avail_products=products,
             purchase_history=purchases,
+            # set=zip(values, labels, colors),
+            category_data = data,
+            count = count,
             carts=carts,
             cartContent=cartContent)
 
