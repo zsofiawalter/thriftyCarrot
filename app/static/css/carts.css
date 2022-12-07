@@ -6,3 +6,56 @@ div.cart-action input {
     cursor: pointer;
     border: none;
 }
+
+.product-form {
+    width: 560px;
+    position: relative;
+    margin: auto;
+    padding: 16px;
+    text-align: center;
+}
+
+.form-cartname {
+    padding: 8px;
+}
+
+.form-productname {
+    top: 25%;
+    padding: 8px;
+}
+
+.product-form-entry {
+    text-align: center;
+    left: 50%;
+}
+
+.remove {
+    position: absolute;
+}
+
+ul {
+    padding: 0;
+    list-style-type: none;
+}
+
+a {
+    color: var(--darkThriftyGreen);
+    padding: 4px;
+}
+
+a:hover {
+    text-decoration: none;
+    color: var(--darkThriftyGreen);
+    font-weight: bold;
+}
+
+.add {
+    width: 120px;
+    position: absolute;
+    left: 35%;
+}
+
+.next {
+    position: absolute;
+    right: 35%;
+}
