@@ -1,7 +1,11 @@
-from flask import render_template
+from flask import render_template, redirect, url_for, flash, request
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SubmitField, BooleanField
 from wtforms.validators import DataRequired
+from werkzeug.urls import url_parse
+from flask_login import login_user, logout_user, current_user, login_required
+from wtforms.validators import ValidationError, DataRequired, Email, EqualTo, Optional, URL
+from flask_datepicker import datepicker
 
 from .models.preferenceModel import PreferenceModel
 
@@ -27,3 +31,21 @@ def preferences():
                             form=form,
                             recentFresh=recentFresh,
                             recentRotten=recentRotten)
+
+class reviewEntry(FlaskForm):
+    like_dislike = BooleanField('Give a fresh carrot?')
+    submit = SubmitField('AddReview')
+
+@bp.route('/newPreference', methods=['GET', 'POST'])
+@login_required
+def update():
+    form = reviewEntry()
+    uid = current_user.id
+    pid = request.args.get('pid', None)
+    if form.validate_on_submit():
+        if(form.like_dislike.data == True): l_d = True
+        if(form.like_dislike.data == False): l_d = False
+        if PreferenceModel.insert(uid, pid, l_d):
+            flash('You have updated your preferences.')
+        return redirect(url_for('home.home'))
+    return render_template('newPreference.html',form=form)

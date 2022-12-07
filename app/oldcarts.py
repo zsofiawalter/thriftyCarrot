@@ -7,7 +7,7 @@ import datetime
 
 from .models.oldCartModel import OldCartModel
 from .models.oldCartContentModel import OldCartContentModel
-
+from .models.preferenceModel import PreferenceModel
 from flask import Blueprint
 bp = Blueprint('oldcarts', __name__)
 
