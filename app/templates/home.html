@@ -67,6 +67,7 @@
         <th scope="col">Price</th>
         <th scope="col">Category</th>
         <th scope="col">Store</th>
+        <th scope="col">Carrot</th>
       </tr>
     </thead>
     <tbody>
@@ -77,7 +78,22 @@
             <td>{{purchase.price}}</td>
             <td>{{purchase.category}}</td>
             <td>{{purchase.store}}</td>
+            {% set pid = purchase.pid %}
+            {% if purchase.review %}
+                <td>{% if purchase.review[0].like_dislike %}
+                      Fresh Carrot
+                      {% else %}
+                      Rotten Carrot
+                      {% endif %} 
+                      <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Change your carrot</a>
+                </td>
+              {% else %}
+                <td>
+                  <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Give a carrot</a>
+                </td>
+            {% endif %}
           </tr>
+            
         {% endif %}
       {% endfor %}
     </tbody>
