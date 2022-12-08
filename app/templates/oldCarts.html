@@ -144,7 +144,7 @@
                       <a href="{{ url_for('preferences.update', pid=pid, returnUrl='oldcarts')}}" class="button">Change your carrot</a>
                 </td>
               {% else %}
-                <td>{{purchase.pid}}
+                <td>
                   <a href="{{ url_for('preferences.update', pid=pid, returnUrl='oldcarts')}}" class="button">Give a carrot</a>
                 </td>
             {% endif %}
