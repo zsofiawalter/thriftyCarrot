@@ -18,13 +18,57 @@
     margin: 6px 2px;
     cursor: pointer;
   }
+  .float-container {
+    padding: 0px;
+  }
+
+  .float-child {
+    width: 50%;
+    float: left;
+    padding: 20px;
+    }  
 </style>
 </head>
 <body>
 <a href="{{ url_for('carts.newcart') }}" class="button">Start new cart!</a>
 </body>
 
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
 
+      function drawChart() {
+        
+        var data = google.visualization.arrayToDataTable({{category_data | safe}});
+
+        var options = {
+          title: 'Historical spending'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
+
+        chart.draw(data, options);
+      }
+    </script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        
+        console.log({{last_cart | safe}})
+        var data = google.visualization.arrayToDataTable({{last_cart | safe}});
+
+        var options = {
+          title: 'Last Cart expenditure'
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
+
+        chart.draw(data, options);
+      }
+    </script>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <style>
@@ -53,8 +97,23 @@
 </style>
 </head>
 <body>
-  
 <br><br>
+{% if count>0 %}
+<div class="float-container">
+
+  <div class="float-child">
+    <div id="piechart1" style="width: 700px; height: 300px;"></div>
+  </div>
+  
+  <div class="float-child">
+    <div id="piechart2" style="width: 700px; height: 300px;"></div>
+  </div>
+  
+</div>
+
+
+{% endif %}
+
 <h2>Your Three Recent CarrotCarts:</h2>
 
 {% for cart in carts%}
