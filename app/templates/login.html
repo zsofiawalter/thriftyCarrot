@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
 {% block body %}
-<body style="background-color:#AFF4C6">
+<body style="background-color:#A0E8A2">
 <div class="center">
   <div class="login-logo-bg">
-    <img src="{{ url_for('static', filename='CarrotIcon.png') }}" alt="Cartoon Carrot Logo" class="login-logo-carrot">
   </div>
+  <img src="{{ url_for('static', filename='CarrotIcon.png') }}" alt="Cartoon Carrot Logo" class="login-logo-carrot">
   <div class="login-box">
-    <h1 style="text-align:center">Thrifty Carrot</h1>
+    <h1 class="font-weight-bold">Thrifty Carrot</h1>
     <h2>Welcome!<h2>
     <form action="" method="post" novalidate style="text-align:center">
       {{ form.hidden_tag() }}

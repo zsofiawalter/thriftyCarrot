@@ -1,6 +1,7 @@
 :root {
-    --thriftyGreen: #AFF4C6;
-    --darkThriftyGreen: #95cea8;
+    --thriftyGreen: #A0E8A2;
+    --lightThriftyGreen: #B4EBB3;
+    --darkThriftyGreen: #7FB076;
     --softWhite: #FAFAFA;
 }
 
@@ -24,12 +25,7 @@ p{
 }
 
 .container {
-display: table;
-width: 75%;
-}
-
-body {
-    font-family: "Lato", sans-serif;
+    position: relative;
 }
 
 .main-head {
@@ -73,34 +69,128 @@ body {
     color: var(--softWhite);
 }
 
+/* LOGIN PAGE */
 .center{
+    width: 560px;
+    margin: auto;
     position: relative;
-    margin: 0 auto;
 }
 
 .login-logo-bg {
-    border-radius: 50%;
-    height: 320px;
-    width: 320px;
-    position: relative;
     background-color: var(--softWhite);
+    border-radius: 50%;
+    height: 360px;
+    width: 360px;
+    position: absolute;
+    top: 100px;
+    left: 100px;
+    z-index: 1;
 }
 
 .login-logo-carrot {
-    display: block;
     height: 240px;
+    width: 240px;
+    margin-left: 160px;
+    margin-top: 140px;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: (-50%, -50%);
+    z-index: 3;
 }
 
 .login-box{
     background-color: var(--softWhite);
     border-style: solid;
-    border-width: 24px;
-    border-radius: 5%;
+    border-radius: 5px;
     border-color: var(--softWhite);
+    border-width: 24px;
+    width: 480px;
+    position: absolute;
+    top: 360px;
+    left: 40px;
+    z-index: 2;
+}
+
+/* REGISTRATION PAGE */
+.registration-bg{
+    background-color: var(--softWhite);
+    border-radius: 50%;
+    height: 560px;
+    width: 560px;
+    position: relative;
+    margin: auto;
+    top: 120px;
+}
+.registration-form {
+    position: absolute;
+    margin: auto;
+    top: 30px;
+}
+
+/* HOME PAGE */
+.home-header {
+    position: relative;
+    margin: auto;
+    height: 120px;
+    padding: 16px;
+}
+
+.thrifty-btn {
+    position: absolute;
+    left: 12.5%;
+    background-color: var(--thriftyGreen);
+    border-color: var(--thriftyGreen);
+    border-radius: 5px;
+    border-style: solid;
+    color: black;
+    font-size: 24px;
+    font-weight: 600;
+    margin-top: 8px;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
+.thrifty-btn:hover {
+    background-color: var(--darkThriftyGreen);
+    border-color: var(--darkThriftyGreen);
+    color: black;
+    text-decoration: none;
+}
+
+.cart-history {
+    position: relative;
+    margin: auto;
+}
+
+.collapsible {
+    background-color: var(--thriftyGreen);
+    cursor: pointer;
+    font-size: 16px;
+    display: table;
+    margin: 16px auto 0px auto;
+    width: 75%;
+    border: solid;
+    border-color: var(--thriftyGreen);
+    border-radius: 5px;
+    border-width: 17px;
+}
+  
+.active, .collapsible:hover {
+    border-color: var(--darkThriftyGreen);
+    background-color: var(--darkThriftyGreen);
+}
+  
+.content {
+    padding: 0 18px;
+    display: table;
+    width: 75%;
+    overflow: hidden;
+    margin: auto;
+    background-color: var(--softWhite);
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+}
+
+.home-table{
+    padding-bottom: 16px;
 }
 
 .productlist {
@@ -110,17 +200,3 @@ body {
 .is-hidden {
     display: none;
 }
-
-.left-half {
-    background-color: #ff9e2c;
-    position: absolute;
-    left: 0px;
-    width: 50%;
-    }
-    
-    .right-half {
-    background-color: #b6701e;
-    position: absolute;
-    right: 0px;
-    width: 50%;
-    }

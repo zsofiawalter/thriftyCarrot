@@ -3,13 +3,15 @@
 
 {% extends "navbar.html" %}
 
-{% block content %}
 {% import "macros.html" as macros %}
 
 {# Adapted from https://www.rmedgar.com/blog/dynamic-fields-flask-wtf/ #}
+
 <head>
+{% block scripts %}
   {# Import JQuery #}
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/carts.css') }}">
 
   <script>
     const ID_RE = /(-)_(-)/;
@@ -139,38 +141,36 @@
         $('.remove').click(removeForm);
     });
   </script>
+{% endblock %}
 </head>
 
-<body>
+{% block content %}
+    <div class="product-form">
+        {# Show all subforms #}
+        <form id="product-form" action="" method="POST" role="form" style="text-align:center">
+            {{ form.hidden_tag() }}
+            <div class="form-cartname">
+                <h2> New Carrot Cart</h2>
+                {{ form.cart_name(size=32, class_='product-form-entry') }}<br/>
+                {% for error in form.cart_name.errors %}
+                <span style="color: red;">[{{ error }}]</span>
+                {% endfor %}
+            </div>
+            <div id="subforms-container" class="form-productname">
+                <h3 style="font-size: 24px;">Grocery List</h3>
+                {% for subform in form.products %}
+                    {{ macros.render_product_form(subform, loop.index0) }}
+                {% endfor %}
+            </div>
+            <a id="add" class="add" href="#">Add Product</a>
+            {{ form.submit(class_="btn btn-black next") }}
+        </form>
 
-    <a id="add" href="#">Add Product</a>
+        {% if form.errors %}
+            {{ form.errors }}
+        {% endif %}
 
-    {# Show all subforms #}
-    <form id="product-form" action="" method="POST" role="form">
-      {{ form.hidden_tag() }}
-
-      <div>
-        {{ form.cart_name.label }}<br/>
-        {{ form.cart_name(size=32) }}<br/>
-        {% for error in form.cart_name.errors %}
-        <span style="color: red;">[{{ error }}]</span>
-        {% endfor %}
-      </div>
-
-      <div id="subforms-container">
-          {% for subform in form.products %}
-              {{ macros.render_product_form(subform, loop.index0) }}
-          {% endfor %}
-      </div>
-      {{ form.submit(class_="btn btn-black") }}
-    </form>
-
-  {% if form.errors %}
-      {{ form.errors }}
-  {% endif %}
-
-  {# Form template #}
-  {{ macros.render_product_form(_template, '_') }}
-
-{% endblock content %}
-</body>
+        {# Form template #}
+        {{ macros.render_product_form(_template, '_') }}
+    </div>
+{% endblock %}
