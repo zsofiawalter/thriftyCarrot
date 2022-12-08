@@ -2,28 +2,6 @@
 <!-- cid, pid, product_name, price, category, store -->
 
 {% extends "navbar.html" %}
-<<<<<<< HEAD
-=======
-<style>
-  .button {
-    background-color: #AFF4C6;
-    border: none;
-    color: white;
-    padding: 20px 34px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 6px 2px;
-    cursor: pointer;
-  }
-</style>
-</head>
-<body>
-<a href="{{ url_for('carts.newcart') }}" class="button">Start new cart!</a>
-</body>
->>>>>>> 224e02592e3388368c6618c0ff189e5f3981a6e9
-
 
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -96,6 +74,7 @@
       <th scope="col">Price</th>
       <th scope="col">Category</th>
       <th scope="col">Store</th>
+      <th scope="col">Quantity</th>
     </tr>
   </thead>
   <tbody>
@@ -106,6 +85,7 @@
         <td>{{purchase.price}}</td>
         <td>{{purchase.category}}</td>
         <td>{{purchase.store}}</td>
+        <td>{{purchase.quantity}}</td>
       </tr>
     {% endfor %}
   </tbody>
@@ -127,6 +107,7 @@
         <th scope="col">Category</th>
         <th scope="col">Store</th>
         <th scope="col">Carrot</th>
+        <th scope="col">Quantity</th>
       </tr>
     </thead>
     {% for purchase in currentUserCartContent%}
@@ -151,6 +132,7 @@
                   <a href="{{ url_for('preferences.update', pid=pid, returnUrl='oldcarts')}}" class="button">Give a carrot</a>
                 </td>
             {% endif %}
+            <td>{{purchase.quantity}}</td>
           </tr>
           {% endif %}
           {% endfor %}   

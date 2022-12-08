@@ -40,7 +40,7 @@ SELECT COUNT(Cart.cid), COUNT(Contents.pid), MIN(Contents.product_name), SUM(Con
 FROM OldCartContents AS Contents, OldCarts AS Cart
 WHERE Cart.uid = :uid
 AND Contents.cid = (SELECT cid
-    FROM Cart
+    FROM OldCarts
     WHERE uid = :uid
     ORDER BY time_created DESC
     limit 1)

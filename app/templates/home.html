@@ -121,6 +121,7 @@
           <th scope="col">Category</th>
           <th scope="col">Store</th>
           <th scope="col">Carrot</th>
+          <th scope="col">Quantity</th>
         </tr>
       </thead>
       <tbody>
@@ -145,6 +146,7 @@
                     <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Give a carrot</a>
                   </td>
               {% endif %}
+              <td>{{purchase.quantity}}</td>
             </tr>
               
           {% endif %}

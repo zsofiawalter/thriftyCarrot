@@ -24,7 +24,7 @@
         index = quantity.getAttribute('id').split('-')[1]
         checkbox = document.getElementById("inlineCheckbox-" + index)
         pid = checkbox.getAttribute('value').split('-')[0]
-        checkbox.setAttribute('value', pid + '-' + quantity)
+        checkbox.setAttribute('value', pid + '-' + quantity.value)
     }
   </script>
 {% endblock %}
