@@ -31,6 +31,7 @@
 </head>
 <body>
 <a href="{{ url_for('carts.newcart') }}" class="button">Start new cart!</a>
+<a href="{{ url_for('products.browseproducts') }}" class="button btn-info">Browse Products By Detail</a>
 </body>
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -99,6 +100,9 @@
 <body>
 <br><br>
 {% if count>0 %}
+
+<h2>Your Analytics At A Glance:</h2>
+
 <div class="float-container">
 
   <div class="float-child">
@@ -160,6 +164,13 @@
 </div>
 {% endfor %}
 
+<div class="container mt-3 mb-3">
+<a href="{{ url_for('oldcarts.oldcarts') }}">
+  <h2>All Old Carts</h2> 
+</a>
+</div>
+
+
 <script>
 var coll = document.getElementsByClassName("collapsible");
 var i;
@@ -180,6 +191,7 @@ for (i = 0; i < coll.length; i++) {
 
 <br><br>
 <h2>Products for Sale:</h2>
+<a href="{{ url_for('products.browseproducts') }}" class="button btn-info">Browse Products By Detail</a>
 <br>
 <table class='table table-hover table-bordered container'>
   <thead class="thead-dark">
