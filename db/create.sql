@@ -65,5 +65,6 @@ CREATE TABLE OldCartContents (
     price DECIMAL(12,2) NOT NULL, 
     category VARCHAR(15) NOT NULL,
     store VARCHAR (15) NOT NULL,
+    quantity INT CHECK (quantity > 0),
     PRIMARY KEY(cid, pid)
 );

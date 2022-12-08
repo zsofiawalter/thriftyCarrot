@@ -49,7 +49,7 @@ def gen_products(num_products):
             if pid % 100 == 0:
                 print(f'{pid}', end=' ', flush=True)
             name = fake.sentence(nb_words=4)[:-1]
-            price = f'{str(fake.random_int(max=500))}.{fake.random_int(max=99):02}'
+            price = f'{str(fake.random_int(max=50))}.{fake.random_int(max=99):02}'
             last_update = fake.date_time_between('-2w')
             category = random.choice(categories)
             store = random.choice(stores)
@@ -154,7 +154,7 @@ def gen_oldCarts(num_oldCarts):
         print(f'{num_oldCarts} generated')
     return
 
-# __cid__, __pid__, product_name, price, category, store
+# __cid__, __pid__, product_name, price, category, store, quantity
 def gen_oldCartContent(num_carts, products):
     with open('OldCartContent.csv', 'w') as f:
         writer = get_csv_writer(f)
@@ -169,43 +169,22 @@ def gen_oldCartContent(num_carts, products):
                 price = products[j][2]
                 category = products[j][3]
                 store = products[j][4]
-                writer.writerow([cid, pid, product_name, price, category, store])
-                counter += 1
-        print(f'{counter} generated;')
-    return
-"""
-# CHANGES: removed num_purchases to ensure each cart gets a list of products,
-#          instead for each cart, it generates a random number of products from 1-25
-# __cid__, __pid__, product_name, price, category, store
-def gen_oldCartContent(num_carts, products):
-    with open('OldCartContent.csv', 'w') as f:
-        writer = get_csv_writer(f)
-        print('OldCartContents...', end=' ', flush=True)
-        counter = 0
-        for cid in range(num_carts):
-            # Generates list of random products user placed in cart
-            randomProductList = random.sample(range(0, num_products), random.randint(1, 25))
-            for j in randomProductList:
-                pid = j
-                product_name = products[j][1]
-                price = products[j][2]
-                category = products[j][3]
-                store = products[j][4]
-                writer.writerow([cid, pid, product_name, price, category, store])
+                qt = random.randint(1, 20)
+                writer.writerow([cid, pid, product_name, price, category, store, qt])
                 counter += 1
         print(f'{counter} generated;')
     return
 
 # users
-gen_users(num_users)
+# gen_users(num_users)
 # products
 products = gen_products(num_products)
-# preferences
-gen_preferences(num_preferences)
-# current carts
-gen_carts(num_carts)
-gen_cartLists(num_itemsInCart)
-gen_cartContents(num_itemsInCart)
+# # preferences
+# gen_preferences(num_preferences)
+# # current carts
+# gen_carts(num_carts)
+# gen_cartLists(num_itemsInCart)
+# gen_cartContents(num_itemsInCart)
 # old carts
 gen_oldCarts(num_oldCarts)
 gen_oldCartContent(num_oldCarts, products)
