@@ -208,3 +208,7 @@ p{
 .is-hidden {
     display: none;
 }
+
+.page-bottom{
+    padding:16px;
+}
