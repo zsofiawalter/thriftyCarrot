@@ -32,7 +32,8 @@
     function drawChart() {  
       var data = google.visualization.arrayToDataTable({{category_data | safe}});
       var options = {
-        title: 'Historical spending'
+        title: 'Historical spending',
+        colors: ['#0A660D', '#237C26', '#378D3A', '#50A253', '#6CBA6E', '#87D289', '#A0E8A2', '#CBF1CB', '#F5FAF5']
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
       chart.draw(data, options);
@@ -46,38 +47,14 @@
       console.log({{ last_cart | safe }})
       var data = google.visualization.arrayToDataTable({{last_cart | safe}});
       var options = {
-        title: 'Last Cart expenditure'
+        title: 'Last Cart expenditure',
+        colors: ['#0A660D', '#237C26', '#378D3A', '#50A253', '#6CBA6E', '#87D289', '#A0E8A2', '#CBF1CB', '#F5FAF5']
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
       chart.draw(data, options);
     }
   </script>
 {% endblock %}
-
-<style>
-  .button {
-    background-color: #AFF4C6;
-    border: none;
-    color: white;
-    padding: 20px 34px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 20px;
-    margin: 6px 2px;
-    cursor: pointer;
-  }
-  .float-container {
-    position: relative;
-    padding: 0px;
-  }
-  .float-child {
-    position: absolute;
-    width: 49%;
-    float: left;
-    padding: 20px;
-  }  
-</style>
 
 {% block content %}
 <br>
@@ -89,19 +66,21 @@
   <a href="{{ url_for('carts.newcart') }}" class="thrifty-btn"> Start new CarrotCart! </a>
 </div>
 
+<div class="cart-analytics clearfix">
 {% if count>0 %}
   <h2>
     Cart Analytics
   </h2>
-  <div class="float-container">
-    <div class="float-child">
-      <div id="piechart1" style="width: 700px; height: 300px;"></div>
+  <div class="chart-container" style="margin:auto">
+    <div class="chart-child">
+      <div id="piechart1" style="height: 300px;"></div>
     </div>
-    <div class="float-child">
-      <div id="piechart2" style="width: 700px; height: 300px;"></div>
+    <div class="chart-child">
+      <div id="piechart2" style="height: 300px;"></div>
     </div>
   </div>
 {% endif %}
+</div>
 
 <div class="cart-history">
   <h2 style="padding: 16px">Your three most recent CarrotCarts:</h2>

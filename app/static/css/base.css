@@ -201,6 +201,17 @@ p{
     cursor: pointer;
 }
 
+.chart-container {
+    display: table;
+    width: 75%;
+}
+
+.chart-child {
+    width: 50%;
+    margin: auto;
+    float: left;
+}
+
 .productlist {
     list-style: none;
 }
