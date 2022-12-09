@@ -131,13 +131,13 @@ p{
 .home-header {
     position: relative;
     margin: auto;
+    display: table;
+    width: 75%;
     height: 120px;
     padding: 16px;
 }
 
 .thrifty-btn {
-    position: absolute;
-    left: 12.5%;
     background-color: var(--thriftyGreen);
     border-color: var(--thriftyGreen);
     border-radius: 5px;

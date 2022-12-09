@@ -3,103 +3,19 @@
 
 {% extends "navbar.html" %}
 
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-.collapsible {
-  background-color: #777;
-  color: white;
-  cursor: pointer;
-  padding: 18px;
-  width: 100%;
-  border: none;
-  text-align: left;
-  outline: none;
-  font-size: 18px;
-}
-
-.active, .collapsible:hover {
-  background-color: #555;
-}
-
-.content {
-  padding: 0 18px;
-  display: none;
-  overflow: hidden;
-  background-color: #f1f1f1;
-}
-</style>
-</head>
 {% block content %}
-<body>
-<form action="" method="post" novalidate>
-  {{ form.hidden_tag() }}
-  <p>
-    {{ form.uid.label }}<br/>
-    {{ form.uid(size=32) }}<br/>
-    {% for error in form.uid.errors %}
-    <span style="color: red;">[{{ error }}]</span>
-    {% endfor %}
-  </p>
-  {{ form.submit(class_="btn btn-black") }}
-</form>
-
-{% if form.validate_on_submit(): %}
-<h2>User {{form.uid.data}}'s three most recent carts:</h2>
-<table class='table table-hover table-bordered container'>
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Cart ID</th>
-      <th scope="col">Cart Name</th>
-      <th scope="col">Time Created</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for cart in carts%}
-      <tr>
-        <th scope="row">{{cart.cid}}</th>
-        <td>{{cart.cart_name}}</td>
-        <td>{{cart.time_created}}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-<h2>User {{form.uid.data}}'s most recent cart contents:</h2>
-<table class='table table-hover table-bordered container'>
-  <thead class="thead-dark">
-    <tr>
-      <th scope="col">Cart ID</th>
-      <th scope="col">Product Name</th>
-      <th scope="col">Price</th>
-      <th scope="col">Category</th>
-      <th scope="col">Store</th>
-      <th scope="col">Quantity</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for purchase in cartContent%}
-      <tr>
-        <th scope="row">{{purchase.cid}}</th>
-        <td>{{purchase.product_name}}</td>
-        <td>{{purchase.price}}</td>
-        <td>{{purchase.category}}</td>
-        <td>{{purchase.store}}</td>
-        <td>{{purchase.quantity}}</td>
-      </tr>
-    {% endfor %}
-  </tbody>
-</table>
-{% endif %}
 
 <br><br>
-{% if current_user.is_authenticated %}
 <h2>Your old cart contents:</h2>
 
 {% for cart in currentUserCarts%}
-<button type="button" class="collapsible">Open {{cart.cart_name}} -- Created on {{cart.time_created}}</button>
-<div class="content">
-  <p><table class='table table-hover table-bordered container'>
+<a data-toggle="collapse" class="collapsible"> 
+    <h3 class="fw-semibold" style="display:inline; font-size:24px;">{{cart.cart_name}}</h3>
+    <p style="display: inline;">  </p>
+    <p class="font-italic" style="display:inline;">{{cart.time_created}} </p>
+</a>
+<div class="collapse content">
+  <p><table class='home-table'>
     <thead class="thead-dark">
       <tr>
         <th scope="col">Product Name</th>
@@ -118,20 +34,34 @@
             <td>{{purchase.price}}</td>
             <td>{{purchase.category}}</td>
             <td>{{purchase.store}}</td>
-            {% set pid = purchase.pid %}
-            {% if purchase.review %}
-                <td>{% if purchase.review[0].like_dislike %}
-                      Fresh Carrot
-                      {% else %}
-                      Rotten Carrot
-                      {% endif %} 
-                      <a href="{{ url_for('preferences.update', pid=pid, returnUrl='oldcarts')}}" class="button">Change your carrot</a>
-                </td>
-              {% else %}
-                <td>{{purchase.pid}}
-                  <a href="{{ url_for('preferences.update', pid=pid, returnUrl='oldcarts')}}" class="button">Give a carrot</a>
-                </td>
-            {% endif %}
+            <td>
+                <form method="POST">
+                  {% if purchase.review %}
+                    {% if purchase.review[0].like_dislike %}
+                      <button class="pref-button" type="submit" name="fresh-carrot" value="delete-freshcarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='CarrotIcon.png') }}" alt="FreshCarrot" height="32px">
+                      </button>
+                      <button class="pref-button" type="submit" name="rotten-carrot" value="update-rottencarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='NullRottenCarrot.png') }}" alt="NullRottenCarrot" height="32px">
+                      </button>
+                    {% else %}
+                      <button class="pref-button" type="submit" name="fresh-carrot" value="update-freshcarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='NullCarrot.png') }}" alt="NullFreshCarrot" height="32px">
+                      </button>
+                      <button class="pref-button" type="submit" name="rotten-carrot" value="delete-rottencarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='RottenCarrot.png') }}" alt="RottenCarrot" height="32px">
+                      </button>
+                    {% endif %} 
+                  {% else %}
+                  <button class="pref-button" type="submit" name="fresh-carrot" value="add-freshcarrot-{{ purchase.pid }}">
+                    <img src="{{ url_for('static', filename='NullCarrot.png') }}" alt="NullFreshCarrot" height="32px">
+                  </button>
+                  <button class="pref-button" type="submit" name="rotten-carrot" value="add-rottencarrot-{{ purchase.pid }}">
+                    <img src="{{ url_for('static', filename='NullRottenCarrot.png') }}" alt="NullRottenCarrot" height="32px">
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
             <td>{{purchase.quantity}}</td>
           </tr>
           {% endif %}
@@ -142,12 +72,10 @@
 {% endfor %}
 
 
-{% else %}
-<p><a href="{{ url_for('users.login') }}">Log in</a> to see your old carts!</p>
-{% endif %}
 
 {% endblock %}
 
+{% block scripts %}
 <script>
   var coll = document.getElementsByClassName("collapsible");
   var i;
@@ -163,7 +91,18 @@
       }
     });
   }
+</script>
+
+<script>
+    $(document).ready(function () {
+      $('table.home-table').DataTable({
+        searching: false,
+        paging: false,
+        info: false
+      });
+    });
   </script>
-  </body>
+
+{% endblock %}
   
   

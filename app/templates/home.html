@@ -63,10 +63,11 @@
   <h2 class="font-italic">
     Welcome Back {{current_user.firstname}}!
   </h2>
-  <a href="{{ url_for('carts.newcart') }}" class="thrifty-btn"> Start new CarrotCart! </a>
+  <a href="{{ url_for('carts.newcart') }}" class="thrifty-btn" style="float: left;"> Start new CarrotCart! </a>
+  <a href="{{ url_for('products.browseproducts') }}" class="thrifty-btn" style="float: right;">Browse Products</a>
 </div>
 
-<div class="cart-analytics clearfix">
+<div class="cart-analytics clearfix" style="margin-top: 16px;">
 {% if count>0 %}
   <h2>
     Cart Analytics
@@ -147,8 +148,11 @@
       </tbody>
     </table>
   </div> 
+  {% endfor %}
+  <a href="{{ url_for('oldcarts.oldcarts') }}" class="thrifty-btn" style="margin:auto; display: block; background-color: white; text-align: center; color: var(--thriftyGreen); border: none; padding: 16px;"> 
+    View all old carts 
+  </a>
 </div> 
-{% endfor %}
 
 <div class="page-bottom">
 
