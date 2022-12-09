@@ -1,5 +1,5 @@
 from flask import render_template
-from flask_login import current_user
+from flask_login import current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField
 from wtforms.validators import DataRequired
@@ -16,6 +16,7 @@ class userEntry(FlaskForm):
     submit = SubmitField('Search For Carts')
 
 # back end endpoint
+@login_required
 @bp.route('/oldcarts', methods=['GET', 'POST'])
 def oldcarts():
     form = userEntry()
