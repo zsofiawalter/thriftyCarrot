@@ -24,7 +24,7 @@ WHERE cid = :cid
     @staticmethod
     def get_count_by_category(uid):
         rows = app.db.execute('''
-SELECT COUNT(Cart.cid), COUNT(Contents.pid), COUNT(Contents.product_name), SUM(Contents.price), Contents.category, COUNT(Contents.store), SUM(Contents.quantity)
+SELECT COUNT(Cart.cid), COUNT(Contents.pid), COUNT(Contents.product_name), SUM(Contents.price*Contents.quantity), Contents.category, COUNT(Contents.store), SUM(Contents.quantity)
 FROM OldCartContents AS Contents, OldCarts AS Cart
 WHERE Cart.uid = :uid
 AND Cart.cid = Contents.cid
@@ -36,7 +36,7 @@ GROUP BY category
     @staticmethod
     def get_last_cart_prices(uid):
         rows = app.db.execute('''
-SELECT COUNT(Cart.cid), COUNT(Contents.pid), MIN(Contents.product_name), SUM(Contents.price), COUNT(Contents.category), COUNT(Contents.store), SUM(Contents.quantity)
+SELECT DISTINCT Cart.cid, Contents.pid, Contents.product_name,  Contents.price*Contents.quantity, Contents.category, Contents.store, Contents.quantity
 FROM OldCartContents AS Contents, OldCarts AS Cart
 WHERE Cart.uid = :uid
 AND Contents.cid = (SELECT cid
@@ -44,7 +44,6 @@ AND Contents.cid = (SELECT cid
     WHERE uid = :uid
     ORDER BY time_created DESC
     limit 1)
-GROUP BY pid
 ''',
                               uid=uid)
         return [OldCartContentModel(*row) for row in rows]
