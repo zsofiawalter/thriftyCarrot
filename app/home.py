@@ -53,7 +53,7 @@ def home():
         if data_length == 0:
             data.append(["Category","Count"])
         data_length+=1
-        data.append([purchase.category,purchase.pid])
+        data.append([purchase.category, float(purchase.price)])
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
         if(content.review): content.like_dislike = content.review[0].like_dislike

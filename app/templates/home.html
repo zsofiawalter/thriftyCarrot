@@ -32,7 +32,8 @@
     function drawChart() {  
       var data = google.visualization.arrayToDataTable({{category_data | safe}});
       var options = {
-        title: 'Historical spending'
+        title: 'Historical spending',
+        colors: ['#0A660D', '#237C26', '#378D3A', '#50A253', '#6CBA6E', '#87D289', '#A0E8A2', '#CBF1CB', '#F5FAF5']
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart1'));
       chart.draw(data, options);
@@ -46,7 +47,8 @@
       console.log({{ last_cart | safe }})
       var data = google.visualization.arrayToDataTable({{last_cart | safe}});
       var options = {
-        title: 'Last Cart expenditure'
+        title: 'Last Cart expenditure',
+        colors: ['#0A660D', '#237C26', '#378D3A', '#50A253', '#6CBA6E', '#87D289', '#A0E8A2', '#CBF1CB', '#F5FAF5']
       };
       var chart = new google.visualization.PieChart(document.getElementById('piechart2'));
       chart.draw(data, options);
