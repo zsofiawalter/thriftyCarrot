@@ -47,12 +47,16 @@ def home():
         if last_cart_length == 0:
             last_cart.append(["Product name","Total price"])
         last_cart_length+=1
-        last_cart.append([product.product_name, float(product.price)])
+        if [product.product_name, float(product.price)] not in last_cart:
+            last_cart.append([product.product_name, float(product.price)])
     for purchase in purchase_category:
         if data_length == 0:
-            data.append(["Category","Count"])
+            data.append(["Category","Total price"])
         data_length+=1
         data.append([purchase.category, float(purchase.price)])
+    print(data)
+    print(last_cart)
+
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
         if(content.review): content.like_dislike = content.review[0].like_dislike
