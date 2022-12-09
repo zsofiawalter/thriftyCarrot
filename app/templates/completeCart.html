@@ -53,8 +53,8 @@
                     <th></th>
                 </tr>
             </thead>
-            {% for i in range(cartLength) %}
-                <tbody>
+            <tbody>
+                {% for i in range(cartLength) %}
                     <tr>
                         <td>{{products[i].name}}</td>
                         <td>{{products[i].price}}</td>
@@ -71,8 +71,8 @@
                             </td>
                         </div>
                     </tr>
-                </tbody>
-            {% endfor %}
+                {% endfor %}
+            </tbody>
         </table>
     <button class="submit-button" type="submit" name="submit-button" value="Submit">Complete Cart</button>
     </form>

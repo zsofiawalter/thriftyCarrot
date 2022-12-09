@@ -44,18 +44,18 @@
                 {{ cartList[i].product_name }}
             </h3>
             <div class="collapse content" style="display:block;">
-                <table class="home-table hover" id="data">
+                <table class="hover home-table" id="data{{ loop.index }}">
                     <thead>
                         <tr>
-                            <th>Product Name</th>
-                            <th>Price</th>
-                            <th>Category</th>
-                            <th>Store</th>
-                            <th></th>
+                            <th scope="col">Product Name</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Category</th>
+                            <th scope="col">Store</th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
-                    {% for product in searchResults[i] %}
-                        <tbody>
+                    <tbody>
+                        {% for product in searchResults[i] %}
                             <tr>
                                 <td>{{product.name}}</td>
                                 <td>{{product.price}}</td>
@@ -68,8 +68,8 @@
                                     </div>
                                 </td>
                             </tr>
-                        </tbody>
-                    {% endfor %}
+                        {% endfor %}
+                    </tbody>
                 </table>
             </div>
         {% endfor %}
