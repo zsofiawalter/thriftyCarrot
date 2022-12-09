@@ -17,6 +17,7 @@ class userEntry(FlaskForm):
     submit = SubmitField('Search For User Freshy Carrots')
 
 # back end endpoint
+@login_required
 @bp.route('/preferences', methods=['GET', 'POST'])
 def preferences():
     form = userEntry()

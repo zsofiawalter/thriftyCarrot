@@ -121,7 +121,7 @@
           <th scope="col">Category</th>
           <th scope="col">Store</th>
           <th scope="col">Carrot</th>
-          <th scope="col">Quantity</th>
+          <th scope="col">Qt.</th>
         </tr>
       </thead>
       <tbody>
@@ -132,20 +132,34 @@
               <td>{{purchase.price}}</td>
               <td>{{purchase.category}}</td>
               <td>{{purchase.store}}</td>
-              {% set pid = purchase.pid %}
-              {% if purchase.review %}
-                  <td>{% if purchase.review[0].like_dislike %}
-                        Fresh Carrot
-                      {% else %}
-                        Rotten Carrot
-                      {% endif %} 
-                      <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Change your carrot</a>
-                  </td>
-                {% else %}
-                  <td>
-                    <a href="{{ url_for('preferences.update', pid=pid, returnUrl='home')}}" class="button">Give a carrot</a>
-                  </td>
-              {% endif %}
+              <td>
+                <form method="POST">
+                  {% if purchase.review %}
+                    {% if purchase.review[0].like_dislike %}
+                      <button class="pref-button" type="submit" name="fresh-carrot" value="delete-freshcarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='CarrotIcon.png') }}" alt="FreshCarrot" height="32px">
+                      </button>
+                      <button class="pref-button" type="submit" name="rotten-carrot" value="update-rottencarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='NullRottenCarrot.png') }}" alt="NullRottenCarrot" height="32px">
+                      </button>
+                    {% else %}
+                      <button class="pref-button" type="submit" name="fresh-carrot" value="update-freshcarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='NullCarrot.png') }}" alt="NullFreshCarrot" height="32px">
+                      </button>
+                      <button class="pref-button" type="submit" name="rotten-carrot" value="delete-rottencarrot-{{ purchase.pid }}">
+                        <img src="{{ url_for('static', filename='RottenCarrot.png') }}" alt="RottenCarrot" height="32px">
+                      </button>
+                    {% endif %} 
+                  {% else %}
+                  <button class="pref-button" type="submit" name="fresh-carrot" value="add-freshcarrot-{{ purchase.pid }}">
+                    <img src="{{ url_for('static', filename='NullCarrot.png') }}" alt="NullFreshCarrot" height="32px">
+                  </button>
+                  <button class="pref-button" type="submit" name="rotten-carrot" value="add-rottencarrot-{{ purchase.pid }}">
+                    <img src="{{ url_for('static', filename='NullRottenCarrot.png') }}" alt="NullRottenCarrot" height="32px">
+                  </button>
+                  {% endif %}
+                </form>
+              </td>
               <td>{{purchase.quantity}}</td>
             </tr>
               
@@ -156,6 +170,10 @@
   </div> 
 </div> 
 {% endfor %}
+
+<div class="page-bottom">
+
+</div>
 
 
 

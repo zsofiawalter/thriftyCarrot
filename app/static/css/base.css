@@ -22,6 +22,7 @@ h3 {
 
 p{
     font-size: 16px;
+    text-align: center;
 }
 
 .container {
@@ -120,10 +121,10 @@ p{
     top: 120px;
 }
 .registration-form {
-    position: absolute;
+    display: block;
     margin: auto;
-    top: 30px;
-    left: 32px;
+    padding-top: 40px;
+    /* justify-content: center; */
 }
 
 /* HOME PAGE */
@@ -194,10 +195,20 @@ p{
     padding-bottom: 16px;
 }
 
+.pref-button{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
 .productlist {
     list-style: none;
 }
 
 .is-hidden {
     display: none;
+}
+
+.page-bottom{
+    padding:16px;
 }
