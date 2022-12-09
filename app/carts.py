@@ -1,4 +1,4 @@
-from flask import render_template, redirect, url_for, request
+from flask import render_template, redirect, url_for, flash, request
 from flask_login import current_user, login_required
 from flask_wtf import FlaskForm
 from wtforms import StringField, SubmitField, FieldList, FormField, Form
@@ -68,7 +68,8 @@ def cartInProgress():
         pids = request.form.getlist('product_info')
         for pid in pids:
             CartContentsModel.insert(uid, pid)
-        return redirect(url_for('carts.cartPurchase'))
+        if len(pids)>0:
+            return redirect(url_for('carts.cartPurchase'))
 
     return render_template('cartInProgress.html',
                             cartName = cart[0].cart_name,
@@ -92,10 +93,12 @@ def cartPurchase():
             cid = OldCartModel.insert(uid, cart.cart_name)
             # only add products checked off to database
             for pid in pids:
-                p, q = pid.split('-')
+                p = pid.split('-')[0]
+                q = pid.split('-')[1]
                 product = ProductModel.get(p)
-                OldCartContentModel.insert(cid, p, product.name, product.price, product.category, product.store)
-            return redirect(url_for('home.home'))
+                OldCartContentModel.insert(cid, p, product.name, product.price, product.category, product.store, q)
+            if len(pids)>1:
+                return redirect(url_for('home.home'))
     
     print(products)
     print(cartContents)

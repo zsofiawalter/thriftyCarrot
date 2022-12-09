@@ -1,6 +1,5 @@
 from flask import render_template, redirect, url_for, flash, request
-from werkzeug.urls import url_parse
-from flask_login import login_user, logout_user, current_user, login_required
+from flask_login import current_user, login_required
 import datetime
 import random
 random.seed(0)
@@ -53,11 +52,28 @@ def home():
         if data_length == 0:
             data.append(["Category","Count"])
         data_length+=1
-        data.append([purchase.category,purchase.pid])
+        data.append([purchase.category, float(purchase.price)])
     for content in cartContent:
         content.review = PreferenceModel.get_product_review(current_user.id, content.pid)
         if(content.review): content.like_dislike = content.review[0].like_dislike
     count = data_length
+    if request.method == 'POST':
+        uid = current_user.id
+        input = []
+        if(request.form.get('fresh-carrot')):
+            input = request.form.get('fresh-carrot').split("-")
+        elif(request.form.get('rotten-carrot')):
+            input = request.form.get('rotten-carrot').split("-")
+        if len(input)>1:
+            if input[0] == "delete":
+                PreferenceModel.delete(uid, input[2])
+            elif input[0] == "update":
+                PreferenceModel.update(uid, input[2], (input[1]=="freshcarrot"))
+            elif input[0] == "add":
+                PreferenceModel.insert(uid, input[2], (input[1]=="freshcarrot"))
+            return(redirect(url_for("home.home")))
+        
+
     return render_template('home.html',
             current_user=current_user,
             avail_products=products,

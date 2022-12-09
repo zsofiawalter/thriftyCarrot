@@ -15,11 +15,9 @@ Adapted from: https://www.rmedgar.com/blog/dynamic-fields-flask-wtf/
     <div id="product-{{ index }}-form" class="{% if index != '_' %}subform{% else %}is-hidden{% endif %}" data-index="{{ index }}">
         <ul class="productlist"> 
             <div>
-                {{ subform.product.label }}
-                {{ subform.product }}
+                {{ subform.product(class_='product-form-entry') }}
+                <a class="remove" href="#"> x</a>
             </div>
-            <a class="remove" href="#">x</a>
-            <hr/>
         </ul>
     </div>
 {%- endmacro %}

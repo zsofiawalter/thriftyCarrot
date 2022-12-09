@@ -88,6 +88,9 @@ RETURNING uid, pid
         except Exception as e:
             # likely issue with product already reviewed
             print(str(e))
+    
+    @staticmethod
+    def update(uid, pid, like_dislike):
         try:
             rows = app.db.execute("""
 UPDATE Preferences
@@ -102,6 +105,21 @@ RETURNING uid, pid
             uid1 = rows[0][0]
             pid1 = rows[0][1]
             return PreferenceModel.get_product_review(uid1,pid1)
+        except Exception as e:
+            print(str(e))
+            return None
+
+    @staticmethod
+    def delete(uid, pid):
+        try:
+            rows = app.db.execute("""
+DELETE FROM Preferences
+WHERE uid = :uid
+AND pid = :pid
+""",
+                                  uid=uid,
+                                  pid=pid)
+            return None
         except Exception as e:
             print(str(e))
             return None
